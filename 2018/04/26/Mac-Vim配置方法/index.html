@@ -7,18 +7,18 @@
   
   <title>Mac Vim配置方法 | Suluner&#39;s 博客站</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="通常，在类Unix环境中编程，Vim是非常重要的编辑代码的工具，而且操作系统均会自带，免除了安装软件的烦恼。 但是操作系统原生自带的Vim之具有最基本的一些功能，使用起来还是不大方便，因此，给Vim安装好用的插件成为了大家的选择。 Vim的插件多种多样，自由度极高。经过长时间的努力寻找，终于找到了一种非常好的插件，特此记录一下。这个插件就是: Spf13-vim">
+  <meta name="description" content="通常，在类Unix环境中编程，Vim是非常重要的编辑代码的工具，而且操作系统均会自带，免除了安装软件的烦恼。 但是操作系统原生自带的Vim之具有最基本的一些功能，使用起来还是不大方便，因此，给Vim安装好用的插件成为了大家的选择。 Vim的插件多种多样，自由度极高。经过长时间的努力寻找，终于找到了一种非常好的插件，特此记录一下。这个插件就是: Spf13-vim为了vim支持neocomplete">
 <meta name="keywords" content="浪花，脚印">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mac Vim配置方法">
 <meta property="og:url" content="http://yoursite.com/2018/04/26/Mac-Vim配置方法/index.html">
 <meta property="og:site_name" content="Suluner&#39;s 博客站">
-<meta property="og:description" content="通常，在类Unix环境中编程，Vim是非常重要的编辑代码的工具，而且操作系统均会自带，免除了安装软件的烦恼。 但是操作系统原生自带的Vim之具有最基本的一些功能，使用起来还是不大方便，因此，给Vim安装好用的插件成为了大家的选择。 Vim的插件多种多样，自由度极高。经过长时间的努力寻找，终于找到了一种非常好的插件，特此记录一下。这个插件就是: Spf13-vim">
+<meta property="og:description" content="通常，在类Unix环境中编程，Vim是非常重要的编辑代码的工具，而且操作系统均会自带，免除了安装软件的烦恼。 但是操作系统原生自带的Vim之具有最基本的一些功能，使用起来还是不大方便，因此，给Vim安装好用的插件成为了大家的选择。 Vim的插件多种多样，自由度极高。经过长时间的努力寻找，终于找到了一种非常好的插件，特此记录一下。这个插件就是: Spf13-vim为了vim支持neocomplete">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2018-04-26T06:20:18.376Z">
+<meta property="og:updated_time" content="2018-05-02T14:24:56.175Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mac Vim配置方法">
-<meta name="twitter:description" content="通常，在类Unix环境中编程，Vim是非常重要的编辑代码的工具，而且操作系统均会自带，免除了安装软件的烦恼。 但是操作系统原生自带的Vim之具有最基本的一些功能，使用起来还是不大方便，因此，给Vim安装好用的插件成为了大家的选择。 Vim的插件多种多样，自由度极高。经过长时间的努力寻找，终于找到了一种非常好的插件，特此记录一下。这个插件就是: Spf13-vim">
+<meta name="twitter:description" content="通常，在类Unix环境中编程，Vim是非常重要的编辑代码的工具，而且操作系统均会自带，免除了安装软件的烦恼。 但是操作系统原生自带的Vim之具有最基本的一些功能，使用起来还是不大方便，因此，给Vim安装好用的插件成为了大家的选择。 Vim的插件多种多样，自由度极高。经过长时间的努力寻找，终于找到了一种非常好的插件，特此记录一下。这个插件就是: Spf13-vim为了vim支持neocomplete">
   
     <link rel="alternate" href="/atom.xml" title="Suluner&#39;s 博客站" type="application/atom+xml">
   
@@ -94,11 +94,19 @@
         <p>通常，在类Unix环境中编程，Vim是非常重要的编辑代码的工具，而且操作系统均会自带，免除了安装软件的烦恼。</p>
 <p>但是操作系统原生自带的Vim之具有最基本的一些功能，使用起来还是不大方便，因此，给Vim安装好用的插件成为了大家的选择。</p>
 <p>Vim的插件多种多样，自由度极高。经过长时间的努力寻找，终于找到了一种非常好的插件，特此记录一下。这个插件就是:</p>
-<h2 id="Spf13-vim"><a href="#Spf13-vim" class="headerlink" title="Spf13-vim"></a><a href="vim.spf13.com">Spf13-vim</a></h2>
+<h2 id="Spf13-vim"><a href="#Spf13-vim" class="headerlink" title="Spf13-vim"></a><a href="vim.spf13.com">Spf13-vim</a></h2><p>为了vim支持neocomplete这个插件，必须使得vim支持lua</p>
+<p>之前在网上看通过源码编译vim,但是我试了很多次都没有成功</p>
+<p>最后索性通过Mac自带的homebrew解决了问题：<br>brew install vim –with-lua</p>
+<p>brew install macvim –with-lua</p>
+<p>这两个命令都有效，简单快捷。</p>
+<p>然而这样又引入了一个新的问题：</p>
+<p>python-mode初始化时报错，初步猜测是因为我使用了anaconda</p>
+<p>但是我已经不想折腾了，现在也用不到，索性在.vimrc.local 中设置：<br>g:py_mode = 0<br>关闭了python-mode,反正现在也用不上，以后要用的时候再解决吧。就酱。</p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/04/26/Mac-Vim配置方法/" data-id="cjgg5jzlp0000e8unyixizfh8" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/04/26/Mac-Vim配置方法/" data-id="cjgp71bvb0000uzuneirmbma7" class="article-share-link">Share</a>
       
       
     </footer>
