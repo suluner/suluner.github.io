@@ -67,6 +67,47 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-清除linux系统cache的方法" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/08/07/清除linux系统cache的方法/" class="article-date">
+  <time datetime="2018-08-07T11:28:34.000Z" itemprop="datePublished">2018-08-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/07/清除linux系统cache的方法/">清除linux系统cache的方法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="只清除pagecache"><a href="#只清除pagecache" class="headerlink" title="只清除pagecache"></a>只清除pagecache</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sync; echo 1 &gt; /proc/sys/vm/drop_caches</span><br></pre></td></tr></table></figure>
+<h2 id="清除dentries-and-inodes"><a href="#清除dentries-and-inodes" class="headerlink" title="清除dentries and inodes"></a>清除dentries and inodes</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sync; echo 2 &gt; /proc/sys/vm/drop_caches</span><br></pre></td></tr></table></figure>
+<h2 id="清除PageCache-dentries-and-inodes"><a href="#清除PageCache-dentries-and-inodes" class="headerlink" title="清除PageCache, dentries and inodes"></a>清除PageCache, dentries and inodes</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sync; echo 3 &gt; /proc/sys/vm/drop_caches</span><br></pre></td></tr></table></figure>
+<h2 id="清除swap空间"><a href="#清除swap空间" class="headerlink" title="清除swap空间"></a>清除swap空间</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">swapoff -a &amp;&amp; swapon -a</span><br></pre></td></tr></table></figure>
+<p><a href="https://www.tecmint.com/clear-ram-memory-cache-buffer-and-swap-space-on-linux/" target="_blank" rel="noopener">原文链接</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/08/07/清除linux系统cache的方法/" data-id="cjkjmowyq0003qiunphoonwz6" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Mac-Vim配置方法" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/04/26/Mac-Vim配置方法/" class="article-date">
@@ -104,7 +145,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/04/26/Mac-Vim配置方法/" data-id="cjgp71bvb0000uzuneirmbma7" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/04/26/Mac-Vim配置方法/" data-id="cjkjmowyt0005qiunfbyyqula" class="article-share-link">Share</a>
       
       
     </footer>
@@ -149,7 +190,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/04/26/Hexo入门指导/" data-id="cjgp71bvf0001uzunj26qm6eu" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/04/26/Hexo入门指导/" data-id="cjkjmowyo0001qiunwtlwftqq" class="article-share-link">Share</a>
       
       
     </footer>
@@ -224,7 +265,7 @@ ans = safe(f());     // 正确！ f() 被调用一次
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/01/22/C语言之free和inline/" data-id="cjgp71bvi0002uzunoc2ttx8n" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/01/22/C语言之free和inline/" data-id="cjkjmowyf0000qiunq60tbkwd" class="article-share-link">Share</a>
       
       
     </footer>
@@ -278,7 +319,7 @@ ans = safe(f());     // 正确！ f() 被调用一次
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/01/15/Hexo搭建博客/" data-id="cjgp71bvk0003uzun7jh1rk4t" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/01/15/Hexo搭建博客/" data-id="cjkjmowyp0002qiuncumxq92o" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Github/">Github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
@@ -322,7 +363,7 @@ ans = safe(f());     // 正确！ f() 被调用一次
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a></li></ul>
     </div>
   </div>
 
@@ -333,6 +374,10 @@ ans = safe(f());     // 正确！ f() 被调用一次
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/08/07/清除linux系统cache的方法/">清除linux系统cache的方法</a>
+          </li>
         
           <li>
             <a href="/2018/04/26/Mac-Vim配置方法/">Mac Vim配置方法</a>
