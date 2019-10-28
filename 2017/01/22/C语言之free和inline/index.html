@@ -51,14 +51,14 @@
 </script>
 
   <meta name="description" content="最近将YOLO项目的代码移植到Windows环境下。遇到了一些问题，因此记录下来。 free头文件：#include &amp;lt;stdlib.h&amp;gt; free() 函数用来释放动态分配的内存空间，其原型为： void free (void* ptr); free() 可以释放由 malloc()、calloc()、realloc() 分配的内存空间，以便其他程序再次使用。 【参数说明】ptr 为">
-<meta name="keywords" content="浪花，脚印">
+<meta name="keywords" content="C,free,inline">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C语言之free和inline">
 <meta property="og:url" content="http://yoursite.com/2017/01/22/C语言之free和inline/index.html">
 <meta property="og:site_name" content="Suluner&#39;s 博客站">
 <meta property="og:description" content="最近将YOLO项目的代码移植到Windows环境下。遇到了一些问题，因此记录下来。 free头文件：#include &amp;lt;stdlib.h&amp;gt; free() 函数用来释放动态分配的内存空间，其原型为： void free (void* ptr); free() 可以释放由 malloc()、calloc()、realloc() 分配的内存空间，以便其他程序再次使用。 【参数说明】ptr 为">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2017-01-22T02:09:48.000Z">
+<meta property="og:updated_time" content="2019-10-28T03:38:01.767Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C语言之free和inline">
 <meta name="twitter:description" content="最近将YOLO项目的代码移植到Windows环境下。遇到了一些问题，因此记录下来。 free头文件：#include &amp;lt;stdlib.h&amp;gt; free() 函数用来释放动态分配的内存空间，其原型为： void free (void* ptr); free() 可以释放由 malloc()、calloc()、realloc() 分配的内存空间，以便其他程序再次使用。 【参数说明】ptr 为">
@@ -201,9 +201,26 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2017-01-22 09:32:44 / Modified: 10:09:48" itemprop="dateCreated datePublished" datetime="2017-01-22T09:32:44+08:00">2017-01-22</time>
+              <time title="Created: 2017-01-22 09:32:44" itemprop="dateCreated datePublished" datetime="2017-01-22T09:32:44+08:00">2017-01-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-10-28 11:38:01" itemprop="dateModified" datetime="2019-10-28T11:38:01+08:00">2019-10-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Language/" itemprop="url" rel="index">
+                    <span itemprop="name">Language</span>
+                  </a>
+                </span>
             </span>
 
           
@@ -264,6 +281,11 @@ ans = safe(f());     // 正确！ f() 被调用一次
     
 
       <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/C/" rel="tag"># C</a>
+              <a href="/tags/free/" rel="tag"># free</a>
+              <a href="/tags/inline/" rel="tag"># inline</a>
+          </div>
 
         
 
@@ -338,9 +360,15 @@ ans = safe(f());     // 正确！ f() 被调用一次
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">2</span>
-        <span class="site-state-item-name">tags</span>
+            <a href="/tags/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
