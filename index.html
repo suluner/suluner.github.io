@@ -175,6 +175,180 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-cn">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/28/10条命令搞定linux性能调试/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="胡挺">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Suluner's 博客站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/10/28/10条命令搞定linux性能调试/" class="post-title-link" itemprop="url">10条命令搞定linux性能调试</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-10-28 11:52:35 / Modified: 11:53:59" itemprop="dateCreated datePublished" datetime="2019-10-28T11:52:35+08:00">2019-10-28</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/OS/" itemprop="url" rel="index">
+                    <span itemprop="name">OS</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="uptime"><a href="#uptime" class="headerlink" title="uptime"></a>uptime</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">huting3@ai23:~$ uptime</span><br><span class="line"> 13:47:32 up 160 days, 20:21,  3 users,  load average: 0.00, 0.01, 0.05</span><br><span class="line">huting3@ai23:~$</span><br></pre></td></tr></table></figure>
+<p>查看系统负载最方便的方式，但是要结合其他工具理解。</p>
+<h2 id="dmesg-tail"><a href="#dmesg-tail" class="headerlink" title="dmesg | tail"></a>dmesg | tail</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ dmesg | tail</span><br><span class="line">[1880957.563150] perl invoked oom-killer: gfp_mask=0x280da, order=0, oom_score_adj=0</span><br><span class="line">[...]</span><br><span class="line">[1880957.563400] Out of memory: Kill process 18694 (perl) score 246 or sacrifice child</span><br><span class="line">[1880957.563408] Killed process 18694 (perl) total-vm:1972392kB, anon-rss:1953348kB, file-rss:0kB</span><br><span class="line">[2320864.954447] TCP: Possible SYN flooding on port 7001. Dropping request.  Check SNMP counters.</span><br></pre></td></tr></table></figure>
+<p>查看系统消息</p>
+<h2 id="vmstat-1"><a href="#vmstat-1" class="headerlink" title="vmstat 1"></a>vmstat 1</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ vmstat 1</span><br><span class="line">procs ---------memory---------- ---swap-- -----io---- -system-- ------cpu-----</span><br><span class="line"> r  b swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st</span><br><span class="line">34  0    0 200889792  73708 591828    0    0     0     5    6   10 96  1  3  0  0</span><br><span class="line">32  0    0 200889920  73708 591860    0    0     0   592 13284 4282 98  1  1  0  0</span><br><span class="line">32  0    0 200890112  73708 591860    0    0     0     0 9501 2154 99  1  0  0  0</span><br><span class="line">32  0    0 200889568  73712 591856    0    0     0    48 11900 2459 99  0  0  0  0</span><br><span class="line">32  0    0 200890208  73712 591860    0    0     0     0 15898 4840 98  1  1  0  0</span><br></pre></td></tr></table></figure>
+<p>检查所有cpu的平均使用情况。</p>
+<p>Columns to check:</p>
+<p>r: Number of processes running on CPU and waiting for a turn. This provides a better signal than load averages for determining CPU saturation, as it does not include I/O. To interpret: an “r” value greater than the CPU count is saturation.</p>
+<p>free: Free memory in kilobytes. If there are too many digits to count, you have enough free memory. The “free -m” command, included as command 7, better explains the state of free memory.</p>
+<p>si, so: Swap-ins and swap-outs. If these are non-zero, you’re out of memory.</p>
+<p>us, sy, id, wa, st: These are breakdowns of CPU time, on average across all CPUs. They are user time, system time (kernel), idle, wait I/O, and stolen time (by other guests, or with Xen, the guest’s own isolated driver domain).</p>
+<h2 id="mpstat-P-ALL"><a href="#mpstat-P-ALL" class="headerlink" title="mpstat -P ALL"></a>mpstat -P ALL</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ mpstat -P ALL 1</span><br><span class="line">Linux 3.13.0-49-generic (titanclusters-xxxxx)  07/14/2015  _x86_64_ (32 CPU)</span><br><span class="line"></span><br><span class="line">07:38:49 PM  CPU   %usr  %nice   %sys %iowait   %irq  %soft  %steal  %guest  %gnice  %idle</span><br><span class="line">07:38:50 PM  all  98.47   0.00   0.75    0.00   0.00   0.00    0.00    0.00    0.00   0.78</span><br><span class="line">07:38:50 PM    0  96.04   0.00   2.97    0.00   0.00   0.00    0.00    0.00    0.00   0.99</span><br><span class="line">07:38:50 PM    1  97.00   0.00   1.00    0.00   0.00   0.00    0.00    0.00    0.00   2.00</span><br><span class="line">07:38:50 PM    2  98.00   0.00   1.00    0.00   0.00   0.00    0.00    0.00    0.00   1.00</span><br><span class="line">07:38:50 PM    3  96.97   0.00   0.00    0.00   0.00   0.00    0.00    0.00    0.00   3.03</span><br><span class="line">[...]</span><br></pre></td></tr></table></figure>
+<p>查看每个cpu的使用情况，用来检查不均衡的状况。</p>
+<h2 id="pidstat-1"><a href="#pidstat-1" class="headerlink" title="pidstat 1"></a>pidstat 1</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">$ pidstat 1</span><br><span class="line">Linux 3.13.0-49-generic (titanclusters-xxxxx)  07/14/2015    _x86_64_    (32 CPU)</span><br><span class="line"></span><br><span class="line">07:41:02 PM   UID       PID    %usr %system  %guest    %CPU   CPU  Command</span><br><span class="line">07:41:03 PM     0         9    0.00    0.94    0.00    0.94     1  rcuos/0</span><br><span class="line">07:41:03 PM     0      4214    5.66    5.66    0.00   11.32    15  mesos-slave</span><br><span class="line">07:41:03 PM     0      4354    0.94    0.94    0.00    1.89     8  java</span><br><span class="line">07:41:03 PM     0      6521 1596.23    1.89    0.00 1598.11    27  java</span><br><span class="line">07:41:03 PM     0      6564 1571.70    7.55    0.00 1579.25    28  java</span><br><span class="line">07:41:03 PM 60004     60154    0.94    4.72    0.00    5.66     9  pidstat</span><br><span class="line"></span><br><span class="line">07:41:03 PM   UID       PID    %usr %system  %guest    %CPU   CPU  Command</span><br><span class="line">07:41:04 PM     0      4214    6.00    2.00    0.00    8.00    15  mesos-slave</span><br><span class="line">07:41:04 PM     0      6521 1590.00    1.00    0.00 1591.00    27  java</span><br><span class="line">07:41:04 PM     0      6564 1573.00   10.00    0.00 1583.00    28  java</span><br><span class="line">07:41:04 PM   108      6718    1.00    0.00    0.00    1.00     0  snmp-pass</span><br><span class="line">07:41:04 PM 60004     60154    1.00    4.00    0.00    5.00     9  pidstat</span><br></pre></td></tr></table></figure>
+<p>查看进程的内存使用情况</p>
+<h2 id="iostat-xz-1"><a href="#iostat-xz-1" class="headerlink" title="iostat -xz 1"></a>iostat -xz 1</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ iostat -xz 1</span><br><span class="line">Linux 3.13.0-49-generic (titanclusters-xxxxx)  07/14/2015  _x86_64_ (32 CPU)</span><br><span class="line"></span><br><span class="line">avg-cpu:  %user   %nice %system %iowait  %steal   %idle</span><br><span class="line">          73.96    0.00    3.73    0.03    0.06   22.21</span><br><span class="line"></span><br><span class="line">Device:   rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util</span><br><span class="line">xvda        0.00     0.23    0.21    0.18     4.52     2.08    34.37     0.00    9.98   13.80    5.42   2.44   0.09</span><br><span class="line">xvdb        0.01     0.00    1.02    8.94   127.97   598.53   145.79     0.00    0.43    1.78    0.28   0.25   0.25</span><br><span class="line">xvdc        0.01     0.00    1.02    8.86   127.79   595.94   146.50     0.00    0.45    1.82    0.30   0.27   0.26</span><br><span class="line">dm-0        0.00     0.00    0.69    2.32    10.47    31.69    28.01     0.01    3.23    0.71    3.98   0.13   0.04</span><br><span class="line">dm-1        0.00     0.00    0.00    0.94     0.01     3.78     8.00     0.33  345.84    0.04  346.81   0.01   0.00</span><br><span class="line">dm-2        0.00     0.00    0.09    0.07     1.35     0.36    22.50     0.00    2.55    0.23    5.62   1.78   0.03</span><br><span class="line">[...]</span><br></pre></td></tr></table></figure>
+<p>查看硬盘的使用情况。</p>
+<p>r/s, w/s, rkB/s, wkB/s: These are the delivered reads, writes, read Kbytes, and write Kbytes per second to the device. Use these for workload characterization. A performance problem may simply be due to an excessive load applied.</p>
+<p>await: The average time for the I/O in milliseconds. This is the time that the application suffers, as it includes both time queued and time being serviced. Larger than expected average times can be an indicator of device saturation, or device problems.</p>
+<p>avgqu-sz: The average number of requests issued to the device. Values greater than 1 can be evidence of saturation (although devices can typically operate on requests in parallel, especially virtual devices which front multiple back-end disks.)</p>
+<p>%util: Device utilization. This is really a busy percent, showing the time each second that the device was doing work. Values greater than 60% typically lead to poor performance (which should be seen in await), although it depends on the device. Values close to 100% usually indicate saturation.</p>
+<h2 id="free-m"><a href="#free-m" class="headerlink" title="free -m"></a>free -m</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ free -m</span><br><span class="line">             total       used       free     shared    buffers     cached</span><br><span class="line">Mem:        245998      24545     221453         83         59        541</span><br><span class="line">-/+ buffers/cache:      23944     222053</span><br><span class="line">Swap:            0          0          0</span><br></pre></td></tr></table></figure>
+<h2 id="sar-n-DEV-1"><a href="#sar-n-DEV-1" class="headerlink" title="sar -n DEV 1"></a>sar -n DEV 1</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ sar -n DEV 1</span><br><span class="line">Linux 3.13.0-49-generic (titanclusters-xxxxx)  07/14/2015     _x86_64_    (32 CPU)</span><br><span class="line"></span><br><span class="line">12:16:48 AM     IFACE   rxpck/s   txpck/s    rxkB/s    txkB/s   rxcmp/s   txcmp/s  rxmcst/s   %ifutil</span><br><span class="line">12:16:49 AM      eth0  18763.00   5032.00  20686.42    478.30      0.00      0.00      0.00      0.00</span><br><span class="line">12:16:49 AM        lo     14.00     14.00      1.36      1.36      0.00      0.00      0.00      0.00</span><br><span class="line">12:16:49 AM   docker0      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00</span><br><span class="line"></span><br><span class="line">12:16:49 AM     IFACE   rxpck/s   txpck/s    rxkB/s    txkB/s   rxcmp/s   txcmp/s  rxmcst/s   %ifutil</span><br><span class="line">12:16:50 AM      eth0  19763.00   5101.00  21999.10    482.56      0.00      0.00      0.00      0.00</span><br><span class="line">12:16:50 AM        lo     20.00     20.00      3.25      3.25      0.00      0.00      0.00      0.00</span><br><span class="line">12:16:50 AM   docker0      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00</span><br></pre></td></tr></table></figure>
+<p>查看网络吞吐量。</p>
+<h2 id="sar-n-TCP-ETCP-1"><a href="#sar-n-TCP-ETCP-1" class="headerlink" title="sar -n TCP,ETCP 1"></a>sar -n TCP,ETCP 1</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ sar -n TCP,ETCP 1</span><br><span class="line">Linux 3.13.0-49-generic (titanclusters-xxxxx)  07/14/2015    _x86_64_    (32 CPU)</span><br><span class="line"></span><br><span class="line">12:17:19 AM  active/s passive/s    iseg/s    oseg/s</span><br><span class="line">12:17:20 AM      1.00      0.00  10233.00  18846.00</span><br><span class="line"></span><br><span class="line">12:17:19 AM  atmptf/s  estres/s retrans/s isegerr/s   orsts/s</span><br><span class="line">12:17:20 AM      0.00      0.00      0.00      0.00      0.00</span><br><span class="line"></span><br><span class="line">12:17:20 AM  active/s passive/s    iseg/s    oseg/s</span><br><span class="line">12:17:21 AM      1.00      0.00   8359.00   6039.00</span><br><span class="line"></span><br><span class="line">12:17:20 AM  atmptf/s  estres/s retrans/s isegerr/s   orsts/s</span><br><span class="line">12:17:21 AM      0.00      0.00      0.00      0.00      0.00</span><br></pre></td></tr></table></figure>
+<p>查看网络连接情况</p>
+<h2 id="top"><a href="#top" class="headerlink" title="top"></a>top</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">$ top</span><br><span class="line">top - 00:15:40 up 21:56,  1 user,  load average: 31.09, 29.87, 29.92</span><br><span class="line">Tasks: 871 total,   1 running, 868 sleeping,   0 stopped,   2 zombie</span><br><span class="line">%Cpu(s): 96.8 us,  0.4 sy,  0.0 ni,  2.7 id,  0.1 wa,  0.0 hi,  0.0 si,  0.0 st</span><br><span class="line">KiB Mem:  25190241+total, 24921688 used, 22698073+free,    60448 buffers</span><br><span class="line">KiB Swap:        0 total,        0 used,        0 free.   554208 cached Mem</span><br><span class="line"></span><br><span class="line">   PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND</span><br><span class="line"> 20248 root      20   0  0.227t 0.012t  18748 S  3090  5.2  29812:58 java</span><br><span class="line">  4213 root      20   0 2722544  64640  44232 S  23.5  0.0 233:35.37 mesos-slave</span><br><span class="line"> 66128 titancl+  20   0   24344   2332   1172 R   1.0  0.0   0:00.07 top</span><br><span class="line">  5235 root      20   0 38.227g 547004  49996 S   0.7  0.2   2:02.74 java</span><br><span class="line">  4299 root      20   0 20.015g 2.682g  16836 S   0.3  1.1  33:14.42 java</span><br><span class="line">     1 root      20   0   33620   2920   1496 S   0.0  0.0   0:03.82 init</span><br><span class="line">     2 root      20   0       0      0      0 S   0.0  0.0   0:00.02 kthreadd</span><br><span class="line">     3 root      20   0       0      0      0 S   0.0  0.0   0:05.35 ksoftirqd/0</span><br><span class="line">     5 root       0 -20       0      0      0 S   0.0  0.0   0:00.00 kworker/0:0H</span><br><span class="line">     6 root      20   0       0      0      0 S   0.0  0.0   0:06.94 kworker/u256:0</span><br><span class="line">     8 root      20   0       0      0      0 S   0.0  0.0   2:38.05 rcu_sched</span><br></pre></td></tr></table></figure>
+<p>查看系统性能。</p>
+<p><a href="https://medium.com/netflix-techblog/linux-performance-analysis-in-60-000-milliseconds-accc10403c55" target="_blank" rel="noopener">参考链接</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-cn">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/28/service和systemctl的区别/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="胡挺">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Suluner's 博客站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/10/28/service和systemctl的区别/" class="post-title-link" itemprop="url">service和systemctl的区别</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-10-28 11:50:23 / Modified: 11:51:44" itemprop="dateCreated datePublished" datetime="2019-10-28T11:50:23+08:00">2019-10-28</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/OS/" itemprop="url" rel="index">
+                    <span itemprop="name">OS</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="init"><a href="#init" class="headerlink" title="init"></a>init</h2><p>service是一个脚本命令，分析service可知是去/etc/init.d目录下执行相关程序。service和chkconfig结合使用。<br>服务配置文件存放目录/etc/init.d/</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 启动sshd服务</span><br><span class="line">service sshd start</span><br><span class="line"># 设置sshd服务开机启动</span><br><span class="line">chkconfig sshd start</span><br></pre></td></tr></table></figure>
+<h2 id="systemd"><a href="#systemd" class="headerlink" title="systemd"></a>systemd</h2><p>centos7版本中使用了systemd，systemd同时兼容service,对应的命令就是systemctl<br>Systemd 是 Linux 系统中最新的初始化系统（init），它主要的设计目标是克服 sysvinit 固有的缺点，提高系统的启动速度<br>使用systemd的目的是获取更快的启动速度。<br>为了减少系统启动时间，systemd的目标是<br>尽可能启动较少的进程<br>尽可能将更多进程并发启动<br>可以去查看系统进程的pid，initd的pid是0，如果支持systemd的系统的systemd进程pid为1</p>
+<p>systemd把不同的资源称为Unit<br>每一个 Unit 都有一个配置文件，告诉 Systemd 怎么启动这个 Unit<br>存放目录：/etc/systemd/system和/usr/lib/systemd/system</p>
+<p>对于有先后依赖关系的任务<br>systemctl融合service和chkconfig功能<br>systemctl的使用例如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 开启服务</span><br><span class="line">systemctl start sshd.service</span><br><span class="line"># 设置开机启动</span><br><span class="line">systemctl enable sshd.service</span><br><span class="line"># 本质上是建立一个软链接 ln -s /usr/lib/systemd/system/sshd.service /etc/systemd/system/multi-user.target.wants/sshd.service</span><br></pre></td></tr></table></figure>
+<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><p>systemd功能更加强大，是某些linux发行版用来代替系统启动init和service的一个新的系统工具，同时还没有失去兼容对init的兼容性。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-cn">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/07/清除linux系统cache的方法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -591,7 +765,7 @@ ans = safe(f());     // 正确！ f() 被调用一次
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -602,7 +776,7 @@ ans = safe(f());     // 正确！ f() 被调用一次
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
