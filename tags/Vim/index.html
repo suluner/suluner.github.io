@@ -50,20 +50,16 @@
   };
 </script>
 
-  <meta name="description" content="只清除pagecache1sync; echo 1 &amp;gt; /proc/sys/vm/drop_caches 清除dentries and inodes1sync; echo 2 &amp;gt; /proc/sys/vm/drop_caches 清除PageCache, dentries and inodes1sync; echo 3 &amp;gt; /proc/sys/vm/drop_caches 清除s">
-<meta name="keywords" content="linux,cache">
-<meta property="og:type" content="article">
-<meta property="og:title" content="清除linux系统cache的方法">
-<meta property="og:url" content="http://yoursite.com/2018/08/07/清除linux系统cache的方法/index.html">
+  <meta name="keywords" content="浪花，脚印">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Suluner&#39;s 博客站">
+<meta property="og:url" content="http://yoursite.com/tags/Vim/index.html">
 <meta property="og:site_name" content="Suluner&#39;s 博客站">
-<meta property="og:description" content="只清除pagecache1sync; echo 1 &amp;gt; /proc/sys/vm/drop_caches 清除dentries and inodes1sync; echo 2 &amp;gt; /proc/sys/vm/drop_caches 清除PageCache, dentries and inodes1sync; echo 3 &amp;gt; /proc/sys/vm/drop_caches 清除s">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2019-10-28T03:46:35.517Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="清除linux系统cache的方法">
-<meta name="twitter:description" content="只清除pagecache1sync; echo 1 &amp;gt; /proc/sys/vm/drop_caches 清除dentries and inodes1sync; echo 2 &amp;gt; /proc/sys/vm/drop_caches 清除PageCache, dentries and inodes1sync; echo 3 &amp;gt; /proc/sys/vm/drop_caches 清除s">
+<meta name="twitter:title" content="Suluner&#39;s 博客站">
 
-<link rel="canonical" href="http://yoursite.com/2018/08/07/清除linux系统cache的方法/">
+<link rel="canonical" href="http://yoursite.com/tags/Vim/">
 
 
 <script id="page-configurations">
@@ -71,13 +67,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: true,
+    isPost: false,
     isPage: false,
     isArchive: false
   };
 </script>
 
-  <title>清除linux系统cache的方法 | Suluner's 博客站</title>
+  <title>Tag: Vim | Suluner's 博客站</title>
   
 
 
@@ -174,106 +170,50 @@
           <div class="content">
             
 
-  <div class="posts-expand">
-      
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-cn">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/07/清除linux系统cache的方法/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="胡挺">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Suluner's 博客站">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          清除linux系统cache的方法
+  
+  <div class="post-block">
+    <div class="posts-collapse">
+      <div class="collection-title">
+        <h1 class="collection-header">Vim
+          <small>Tag</small>
         </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-08-07 19:28:34" itemprop="dateCreated datePublished" datetime="2018-08-07T19:28:34+08:00">2018-08-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-10-28 11:46:35" itemprop="dateModified" datetime="2019-10-28T11:46:35+08:00">2019-10-28</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/OS/" itemprop="url" rel="index">
-                    <span itemprop="name">OS</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+      </div>
 
       
-        <h2 id="只清除pagecache"><a href="#只清除pagecache" class="headerlink" title="只清除pagecache"></a>只清除pagecache</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sync; echo 1 &gt; /proc/sys/vm/drop_caches</span><br></pre></td></tr></table></figure>
-<h2 id="清除dentries-and-inodes"><a href="#清除dentries-and-inodes" class="headerlink" title="清除dentries and inodes"></a>清除dentries and inodes</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sync; echo 2 &gt; /proc/sys/vm/drop_caches</span><br></pre></td></tr></table></figure>
-<h2 id="清除PageCache-dentries-and-inodes"><a href="#清除PageCache-dentries-and-inodes" class="headerlink" title="清除PageCache, dentries and inodes"></a>清除PageCache, dentries and inodes</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sync; echo 3 &gt; /proc/sys/vm/drop_caches</span><br></pre></td></tr></table></figure>
-<h2 id="清除swap空间"><a href="#清除swap空间" class="headerlink" title="清除swap空间"></a>清除swap空间</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">swapoff -a &amp;&amp; swapon -a</span><br></pre></td></tr></table></figure>
-<p><a href="https://www.tecmint.com/clear-ram-memory-cache-buffer-and-swap-space-on-linux/" target="_blank" rel="noopener">原文链接</a></p>
-
+    <div class="collection-year">
+      <h1 class="collection-header">2018</h1>
     </div>
 
-    
-    
-    
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
 
-      <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/linux/" rel="tag"># linux</a>
-              <a href="/tags/cache/" rel="tag"># cache</a>
-          </div>
+      <div class="post-meta">
+        <time itemprop="dateCreated"
+              datetime="2018-04-26T13:40:51+08:00"
+              content="2018-04-26">
+          04-26
+        </time>
+      </div>
 
-        
+      <h2 class="post-title">
+          <a class="post-title-link" href="/2018/04/26/Mac-Vim配置方法/" itemprop="url">
+            <span itemprop="name">Mac OS Vim插件配置方法</span>
+          </a>
+      </h2>
 
-          <div class="post-nav">
-            <div class="post-nav-next post-nav-item">
-                <a href="/2018/04/26/Mac-Vim配置方法/" rel="next" title="Mac OS Vim插件配置方法">
-                  <i class="fa fa-chevron-left"></i> Mac OS Vim插件配置方法
-                </a>
-            </div>
-
-            <span class="post-nav-divider"></span>
-
-            <div class="post-nav-prev post-nav-item">
-            </div>
-          </div>
-      </footer>
-    
+    </header>
   </article>
+
+    </div>
+  </div>
   
   
   
 
-  </div>
+  
+
 
 
           </div>
@@ -302,7 +242,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#只清除pagecache"><span class="nav-number">1.</span> <span class="nav-text">只清除pagecache</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#清除dentries-and-inodes"><span class="nav-number">2.</span> <span class="nav-text">清除dentries and inodes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#清除PageCache-dentries-and-inodes"><span class="nav-number">3.</span> <span class="nav-text">清除PageCache, dentries and inodes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#清除swap空间"><span class="nav-number">4.</span> <span class="nav-text">清除swap空间</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
