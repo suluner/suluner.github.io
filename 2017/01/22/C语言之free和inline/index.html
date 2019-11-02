@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 3.7.1">
+<meta name="generator" content="Hexo 4.0.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -54,16 +54,14 @@
 <meta name="keywords" content="C,free,inline">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C语言之free和inline">
-<meta property="og:url" content="http://yoursite.com/2017/01/22/C语言之free和inline/index.html">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2017&#x2F;01&#x2F;22&#x2F;C%E8%AF%AD%E8%A8%80%E4%B9%8Bfree%E5%92%8Cinline&#x2F;index.html">
 <meta property="og:site_name" content="月落阁">
 <meta property="og:description" content="最近将YOLO项目的代码移植到Windows环境下。遇到了一些问题，因此记录下来。 free头文件：#include &amp;lt;stdlib.h&amp;gt; free() 函数用来释放动态分配的内存空间，其原型为： void free (void* ptr); free() 可以释放由 malloc()、calloc()、realloc() 分配的内存空间，以便其他程序再次使用。 【参数说明】ptr 为">
 <meta property="og:locale" content="zh-cn">
 <meta property="og:updated_time" content="2019-10-28T03:38:01.767Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="C语言之free和inline">
-<meta name="twitter:description" content="最近将YOLO项目的代码移植到Windows环境下。遇到了一些问题，因此记录下来。 free头文件：#include &amp;lt;stdlib.h&amp;gt; free() 函数用来释放动态分配的内存空间，其原型为： void free (void* ptr); free() 可以释放由 malloc()、calloc()、realloc() 分配的内存空间，以便其他程序再次使用。 【参数说明】ptr 为">
 
-<link rel="canonical" href="http://yoursite.com/2017/01/22/C语言之free和inline/">
+<link rel="canonical" href="http://yoursite.com/2017/01/22/C%E8%AF%AD%E8%A8%80%E4%B9%8Bfree%E5%92%8Cinline/">
 
 
 <script id="page-configurations">
@@ -209,7 +207,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-cn">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/22/C语言之free和inline/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/22/C%E8%AF%AD%E8%A8%80%E4%B9%8Bfree%E5%92%8Cinline/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -272,19 +270,20 @@
 <p>【参数说明】ptr 为将要释放的内存空间的地址。</p>
 <p>free() 只能释放动态分配的内存空间，并不能释放任意的内存。下面的写法是错误的：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int a[10];</span><br><span class="line">// ...</span><br><span class="line">free(a);</span><br></pre></td></tr></table></figure>
+
 <p>如果 ptr 所指向的内存空间不是由上面的三个函数所分配的，或者已被释放，那么调用 free() 会有无法预知的情况发生。</p>
 <p>如果 ptr 为 NULL，那么 free() 不会有任何作用。</p>
 <p>注意：free() 不会改变 ptr 变量本身的值，调用 free() 后它仍然会指向相同的内存空间，但是此时该内存已无效，不能被使用。所以建议将 ptr 的值设置为 NULL，例如：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">free(ptr);</span><br><span class="line">ptr = NULL;</span><br></pre></td></tr></table></figure>
+
 <h2 id="内联函数（inline）和宏定义（define）"><a href="#内联函数（inline）和宏定义（define）" class="headerlink" title="内联函数（inline）和宏定义（define）"></a>内联函数（inline）和宏定义（define）</h2><h3 id="关键点："><a href="#关键点：" class="headerlink" title="关键点："></a>关键点：</h3><p>1、内联函数在可读性方面与函数是相同的，而在编译时是将函数直接嵌入调用程序的主体，省去了调用/返回指令，这样在运行时速度更快。</p>
 <p>2、内联函数可以调试，而宏定义是不可以调试的。</p>
 <p>内联函数与宏本质上是两个不同的概念如果程序编写者对于既要求快速，又要求可读的情况下，则应该将函数冠以inline。下面详细介绍一下探讨一下内联函数与宏定义。</p>
 <h3 id="一、内联函数是什么？"><a href="#一、内联函数是什么？" class="headerlink" title="一、内联函数是什么？"></a>一、内联函数是什么？</h3><p>内联函数是代码被插入到调用者代码处的函数。如同 #define 宏（但并不等同，原因见下文），内联函数通过避免被调用的开销来提高执行效率，尤其是它能够通过调用（“过程化集成”）被编译器优化。</p>
-<h3 id="二、-内联函数是如何在安全和速度上取得折衷？"><a href="#二、-内联函数是如何在安全和速度上取得折衷？" class="headerlink" title="二、 内联函数是如何在安全和速度上取得折衷？"></a>二、 内联函数是如何在安全和速度上取得折衷？</h3><p>在 C 中，你可以通过在结构中设置一个 void<em> 来得到“封装的结构”，在这种情况下，指向实际数据的 void</em> 指针对于结构的用户来说是未知的。因此结构的用户不知道如何解释void<em>指针所指内容，但是存取函数可以将 void</em> 转换成适当的隐含类型。这样给出了封装的一种形式。</p>
+<h3 id="二、-内联函数是如何在安全和速度上取得折衷？"><a href="#二、-内联函数是如何在安全和速度上取得折衷？" class="headerlink" title="二、 内联函数是如何在安全和速度上取得折衷？"></a>二、 内联函数是如何在安全和速度上取得折衷？</h3><p>在 C 中，你可以通过在结构中设置一个 void* 来得到“封装的结构”，在这种情况下，指向实际数据的 void* 指针对于结构的用户来说是未知的。因此结构的用户不知道如何解释void<em>指针所指内容，但是存取函数可以将 void</em> 转换成适当的隐含类型。这样给出了封装的一种形式。</p>
 <p>不幸的是这样做丧失了类型安全，并且也将繁琐的对结构中的每个域的访问强加于函数调用。（如果你允许直接存取结构的域，那么对任何能直接存取的人来说，了解如何解释 void* 指针所指内容就是必要的了；这样将使改变底层数据结构变的困难）。</p>
 <p>虽然函数调用开销是很小的，但它会被累积。C++类允许函数调用以内联展开。这样让你在得到封装的安全性时，同时得到直接存取的速度。此外，内联函数的参数类型由编译器检查，这是对 C 的 #define 宏的一个改进。</p>
-<h3 id="三、为什么我应该用内联函数？而不是原来清晰的-define-宏？"><a href="#三、为什么我应该用内联函数？而不是原来清晰的-define-宏？" class="headerlink" title="三、为什么我应该用内联函数？而不是原来清晰的 #define 宏？"></a>三、为什么我应该用内联函数？而不是原来清晰的 #define 宏？</h3><p>因为#define宏定义函数是在四处是有害的：<br>和 #define 宏不同的是，内联函数总是对参数只精确地进行一次求值，从而避免了那声名狼藉的宏错误。换句话说，调用内联函数和调用正规函数是等价的，差别仅仅是更快：<br>// 返回 i 的绝对值的宏</p>
-<p>#define unsafe(i) \<br>    ( (i) &gt;= 0 ? (i) : -(i) )</p>
+<h3 id="三、为什么我应该用内联函数？而不是原来清晰的-define-宏？"><a href="#三、为什么我应该用内联函数？而不是原来清晰的-define-宏？" class="headerlink" title="三、为什么我应该用内联函数？而不是原来清晰的 #define 宏？"></a>三、为什么我应该用内联函数？而不是原来清晰的 #define 宏？</h3><p>因为#define宏定义函数是在四处是有害的：<br>和 #define 宏不同的是，内联函数总是对参数只精确地进行一次求值，从而避免了那声名狼藉的宏错误。换句话说，调用内联函数和调用正规函数是等价的，差别仅仅是更快：<br>// 返回 i 的绝对值的宏<br>#define unsafe(i) <br>    ( (i) &gt;= 0 ? (i) : -(i) )</p>
 <p>// 返回 i 的绝对值的内联函数<br>inline<br>int safe(int i)<br>{<br>    return i &gt;= 0 ? i : -i;<br>}</p>
 <p>int f();</p>
 <p>void userCode(int x)<br>{<br>    int ans;</p>
@@ -292,8 +291,7 @@
 ans = unsafe(f());   // 危险！f()被调用两次
 
 ans = safe(x++);     // 正确！ x 被增加一次
-ans = safe(f());     // 正确！ f() 被调用一次
-</code></pre><p>}</p>
+ans = safe(f());     // 正确！ f() 被调用一次</code></pre><p>}</p>
 <p>和宏不同的，还有内联函数的参数类型被检查，并且被正确地进行必要的转换。<br>宏定义复杂函数是有害的；非万不得已不要用。</p>
 <h3 id="四、如何告诉编译器使非成员函数成为内联函数？"><a href="#四、如何告诉编译器使非成员函数成为内联函数？" class="headerlink" title="四、如何告诉编译器使非成员函数成为内联函数？"></a>四、如何告诉编译器使非成员函数成为内联函数？</h3><p>声明内联函数看上去和普通函数非常相似：<br>void f(int i, char c);<br>当你定义一个内联函数时，在函数定义前加上 inline 关键字，并且将定义放入头文件：<br>inline<br>void f(int i, char c)<br>{<br>    // …<br>}</p>
 <p>注意：将函数的定义（{…}之间的部分）放在头文件中是强制的，除非该函数仅仅被单个 .cpp 文件使用。尤其是，如果你将内联函数的定义放在 .cpp 文件中并且在其他 .cpp文件中调用它，连接器将给出 “unresolved external” 错误。</p>
@@ -321,7 +319,7 @@ ans = safe(f());     // 正确！ f() 被调用一次
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/2017/01/15/Hexo搭建博客/" rel="next" title="Hexo+Github搭建博客">
+                <a href="/2017/01/15/Hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" rel="next" title="Hexo+Github搭建博客">
                   <i class="fa fa-chevron-left"></i> Hexo+Github搭建博客
                 </a>
             </div>
@@ -329,7 +327,7 @@ ans = safe(f());     // 正确！ f() 被调用一次
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/2018/04/26/Mac-Vim配置方法/" rel="prev" title="Mac OS Vim插件配置方法">
+                <a href="/2018/04/26/Mac-Vim%E9%85%8D%E7%BD%AE%E6%96%B9%E6%B3%95/" rel="prev" title="Mac OS Vim插件配置方法">
                   Mac OS Vim插件配置方法 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
@@ -430,10 +428,10 @@ ans = safe(f());     // 正确！ f() 被调用一次
   </span>
   <span class="author" itemprop="copyrightHolder">胡挺</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.7.1
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.0.0
   </div>
   <span class="post-meta-divider">|</span>
-  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.2
+  <div class="theme-info">Theme – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.2
   </div>
 
         

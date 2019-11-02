@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 3.7.1">
+<meta name="generator" content="Hexo 4.0.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -50,20 +50,18 @@
   };
 </script>
 
-  <meta name="description" content="我的环境是Ubuntu14.04,利用Hexo将博客部署到github。 安装git一条命令即可1$ sudo sudo apt-get install git 安装Node.jsNode.js的安装有很多种方式，使用编译源码安装的方式安装。 安装前配置安装g++编译器1$ sudo apt-get install build-essential 去Node.js官网下载源代码，选择最后一项，So">
+  <meta name="description" content="我的环境是Ubuntu14.04,利用Hexo将博客部署到github。 安装git一条命令即可1$ sudo sudo apt-get install git   安装Node.jsNode.js的安装有很多种方式，使用编译源码安装的方式安装。 安装前配置安装g++编译器1$ sudo apt-get install build-essential 去Node.js官网下载源代码，选择最后一项，">
 <meta name="keywords" content="Hexo,Github,Blog">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hexo+Github搭建博客">
-<meta property="og:url" content="http://yoursite.com/2017/01/15/Hexo搭建博客/index.html">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2017&#x2F;01&#x2F;15&#x2F;Hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2&#x2F;index.html">
 <meta property="og:site_name" content="月落阁">
-<meta property="og:description" content="我的环境是Ubuntu14.04,利用Hexo将博客部署到github。 安装git一条命令即可1$ sudo sudo apt-get install git 安装Node.jsNode.js的安装有很多种方式，使用编译源码安装的方式安装。 安装前配置安装g++编译器1$ sudo apt-get install build-essential 去Node.js官网下载源代码，选择最后一项，So">
+<meta property="og:description" content="我的环境是Ubuntu14.04,利用Hexo将博客部署到github。 安装git一条命令即可1$ sudo sudo apt-get install git   安装Node.jsNode.js的安装有很多种方式，使用编译源码安装的方式安装。 安装前配置安装g++编译器1$ sudo apt-get install build-essential 去Node.js官网下载源代码，选择最后一项，">
 <meta property="og:locale" content="zh-cn">
 <meta property="og:updated_time" content="2019-10-28T03:43:26.106Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo+Github搭建博客">
-<meta name="twitter:description" content="我的环境是Ubuntu14.04,利用Hexo将博客部署到github。 安装git一条命令即可1$ sudo sudo apt-get install git 安装Node.jsNode.js的安装有很多种方式，使用编译源码安装的方式安装。 安装前配置安装g++编译器1$ sudo apt-get install build-essential 去Node.js官网下载源代码，选择最后一项，So">
 
-<link rel="canonical" href="http://yoursite.com/2017/01/15/Hexo搭建博客/">
+<link rel="canonical" href="http://yoursite.com/2017/01/15/Hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/">
 
 
 <script id="page-configurations">
@@ -209,7 +207,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-cn">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/15/Hexo搭建博客/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/15/Hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -266,21 +264,30 @@
       
         <p>我的环境是Ubuntu14.04,利用Hexo将博客部署到github。</p>
 <h2 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h2><h3 id="一条命令即可"><a href="#一条命令即可" class="headerlink" title="一条命令即可"></a>一条命令即可</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo sudo apt-get install git</span><br></pre></td></tr></table></figure>
+
+
 <h2 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h2><p>Node.js的安装有很多种方式，使用编译源码安装的方式安装。</p>
 <h3 id="安装前配置安装g-编译器"><a href="#安装前配置安装g-编译器" class="headerlink" title="安装前配置安装g++编译器"></a>安装前配置安装g++编译器</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install build-essential</span><br></pre></td></tr></table></figure>
 <p>去<a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">Node.js</a>官网下载源代码，选择最后一项，Source Code</p>
 <h3 id="解压到某一目录，然后进入此目录-依次执行以下3条命令"><a href="#解压到某一目录，然后进入此目录-依次执行以下3条命令" class="headerlink" title="解压到某一目录，然后进入此目录,依次执行以下3条命令"></a>解压到某一目录，然后进入此目录,依次执行以下3条命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ./configure</span><br><span class="line">$ make</span><br><span class="line">$ sudo make install</span><br></pre></td></tr></table></figure>
 <p>安装时间比较长，可以喝杯咖啡。</p>
-<h2 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h2><p>一条命令即可<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo npm install -g hexo</span><br></pre></td></tr></table></figure></p>
+<h2 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h2><p>一条命令即可</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo npm install -g hexo</span><br></pre></td></tr></table></figure>
+
 <h2 id="创建博客"><a href="#创建博客" class="headerlink" title="创建博客"></a>创建博客</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init blog</span><br><span class="line">$ <span class="built_in">cd</span> blog</span><br><span class="line">$ sudo npm install</span><br></pre></td></tr></table></figure>
+
 <h3 id="生成静态页面"><a href="#生成静态页面" class="headerlink" title="生成静态页面"></a>生成静态页面</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
 <h3 id="启动本地服务"><a href="#启动本地服务" class="headerlink" title="启动本地服务"></a>启动本地服务</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+
 <h2 id="部署到github"><a href="#部署到github" class="headerlink" title="部署到github"></a>部署到github</h2><p>注册github账号之类的就不多说了</p>
 <h3 id="建立博客目录"><a href="#建立博客目录" class="headerlink" title="建立博客目录"></a>建立博客目录</h3><p>博客目录名称必须为yourusername.github.io</p>
 <h3 id="配置-config-yml"><a href="#配置-config-yml" class="headerlink" title="配置_config.yml"></a>配置_config.yml</h3><p>翻到最下面，改成我这样子的</p>
 <p>deploy:<br>  type: git<br>  repo: <a href="https://github.com/yourusername/yourusername.github.io.git" target="_blank" rel="noopener">https://github.com/yourusername/yourusername.github.io.git</a><br>  branch: master</p>
 <h3 id="执行命令"><a href="#执行命令" class="headerlink" title="执行命令"></a>执行命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
 <h3 id="推送到github"><a href="#推送到github" class="headerlink" title="推送到github"></a>推送到github</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
 <p>至此工作基本完成，可以访问你的博客了。</p>
 
     </div>
@@ -305,7 +312,7 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/2017/01/22/C语言之free和inline/" rel="prev" title="C语言之free和inline">
+                <a href="/2017/01/22/C%E8%AF%AD%E8%A8%80%E4%B9%8Bfree%E5%92%8Cinline/" rel="prev" title="C语言之free和inline">
                   C语言之free和inline <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
@@ -406,10 +413,10 @@
   </span>
   <span class="author" itemprop="copyrightHolder">胡挺</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.7.1
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.0.0
   </div>
   <span class="post-meta-divider">|</span>
-  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.2
+  <div class="theme-info">Theme – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.2
   </div>
 
         

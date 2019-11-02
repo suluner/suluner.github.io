@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 3.7.1">
+<meta name="generator" content="Hexo 4.0.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -53,11 +53,10 @@
   <meta name="keywords" content="技术，生活">
 <meta property="og:type" content="website">
 <meta property="og:title" content="月落阁">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;index.html">
 <meta property="og:site_name" content="月落阁">
 <meta property="og:locale" content="zh-cn">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="月落阁">
 
 <link rel="canonical" href="http://yoursite.com/">
 
@@ -205,7 +204,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-cn">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/31/Iptables原理和使用/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/02/Iptables%E5%8E%9F%E7%90%86%E5%92%8C%E4%BD%BF%E7%94%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -219,7 +218,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/10/31/Iptables原理和使用/" class="post-title-link" itemprop="url">Iptables原理和使用</a>
+            <a href="/2019/11/02/Iptables%E5%8E%9F%E7%90%86%E5%92%8C%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">Iptables原理和使用</a>
         </h1>
 
         <div class="post-meta">
@@ -228,16 +227,10 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2019-10-31 18:13:37" itemprop="dateCreated datePublished" datetime="2019-10-31T18:13:37+08:00">2019-10-31</time>
+              <time title="Created: 2019-11-02 11:13:37 / Modified: 12:03:26" itemprop="dateCreated datePublished" datetime="2019-11-02T11:13:37+08:00">2019-11-02</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-11-02 11:21:49" itemprop="dateModified" datetime="2019-11-02T11:21:49+08:00">2019-11-02</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -266,14 +259,16 @@
 <ul>
 <li>5条链（关卡）：</li>
 </ul>
-<p><img src="/.com//link.png" alt=""></p>
+<img src="/.com//11/02/Iptables%E5%8E%9F%E7%90%86%E5%92%8C%E4%BD%BF%E7%94%A8/link.png" class="" title="link image">
+
 <p>到本机某进程的报文：prerouting–&gt;input</p>
 <p>本机某进程发出的报文：output–&gt;postrouting</p>
 <p>本机转发的报文：prerouting–&gt;forward–&gt;postrouting</p>
 <ul>
 <li>4张表：</li>
 </ul>
-<p><img src="/.com//table.png" alt=""></p>
+<img src="/.com//11/02/Iptables%E5%8E%9F%E7%90%86%E5%92%8C%E4%BD%BF%E7%94%A8/table.png" class="" title="table image">
+
 <p>表中包含一条条规则</p>
 <p>规则组成：</p>
 <p>匹配条件+处理动作</p>
@@ -294,6 +289,7 @@
 <li>添加规则：</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">iptables -t filter -I INPUT -s ip -j ACCEPT</span><br><span class="line"></span><br><span class="line">iptables -t filter -A INPIT -s ip -j ACCEPT</span><br></pre></td></tr></table></figure>
+
 <p>-I  在表头插入规则</p>
 <p>-A 在表尾追加规则</p>
 <p>规则的顺序很重要，如果某个报文已经被前面的规则匹配了，那么后面的规则不会处理。</p>
@@ -302,8 +298,10 @@
 </ul>
 <p>按序号删除</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">iptables --line -vnL INPUT</span><br><span class="line"></span><br><span class="line">iptables -t filter -D INPUT 3</span><br></pre></td></tr></table></figure>
+
 <p>按匹配条件和处理动作删除</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t filter -D INPUT -s ip -j ACCEPT</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>修改规则</li>
 </ul>
@@ -342,6 +340,7 @@
 <h2 id="自定义链"><a href="#自定义链" class="headerlink" title="自定义链"></a>自定义链</h2><p>方便管理各种规则，普通规则的动作设置为自定义链，符合条件的报文会经过自定义链的规则。</p>
 <p>Docker一般也会添加自定义链。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 添加自定义链</span></span><br><span class="line">iptables -t filter -N IN_WEB</span><br><span class="line"><span class="comment"># 引用</span></span><br><span class="line">iptables -t filter -I INPUT -p tcp --dport 80 -j IN_WEB</span><br><span class="line"><span class="comment"># 修改名称</span></span><br><span class="line">iptables -E IN_WEB WEB</span><br><span class="line"><span class="comment"># 删除</span></span><br><span class="line">iptables -X WEB</span><br></pre></td></tr></table></figure>
+
 <h2 id="动作总结"><a href="#动作总结" class="headerlink" title="动作总结"></a>动作总结</h2><ul>
 <li>accept</li>
 <li>drop</li>
@@ -380,7 +379,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-cn">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/28/10条命令搞定linux性能调试/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/28/10%E6%9D%A1%E5%91%BD%E4%BB%A4%E6%90%9E%E5%AE%9Alinux%E6%80%A7%E8%83%BD%E8%B0%83%E8%AF%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -394,7 +393,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/10/28/10条命令搞定linux性能调试/" class="post-title-link" itemprop="url">10条命令搞定linux性能调试</a>
+            <a href="/2019/10/28/10%E6%9D%A1%E5%91%BD%E4%BB%A4%E6%90%9E%E5%AE%9Alinux%E6%80%A7%E8%83%BD%E8%B0%83%E8%AF%95/" class="post-title-link" itemprop="url">10条命令搞定linux性能调试</a>
         </h1>
 
         <div class="post-meta">
@@ -452,11 +451,13 @@
 <p>avgqu-sz: The average number of requests issued to the device. Values greater than 1 can be evidence of saturation (although devices can typically operate on requests in parallel, especially virtual devices which front multiple back-end disks.)</p>
 <p>%util: Device utilization. This is really a busy percent, showing the time each second that the device was doing work. Values greater than 60% typically lead to poor performance (which should be seen in await), although it depends on the device. Values close to 100% usually indicate saturation.</p>
 <h2 id="free-m"><a href="#free-m" class="headerlink" title="free -m"></a>free -m</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ free -m</span><br><span class="line">             total       used       free     shared    buffers     cached</span><br><span class="line">Mem:        245998      24545     221453         83         59        541</span><br><span class="line">-/+ buffers/cache:      23944     222053</span><br><span class="line">Swap:            0          0          0</span><br></pre></td></tr></table></figure>
+
 <h2 id="sar-n-DEV-1"><a href="#sar-n-DEV-1" class="headerlink" title="sar -n DEV 1"></a>sar -n DEV 1</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ sar -n DEV 1</span><br><span class="line">Linux 3.13.0-49-generic (titanclusters-xxxxx)  07/14/2015     _x86_64_    (32 CPU)</span><br><span class="line"></span><br><span class="line">12:16:48 AM     IFACE   rxpck/s   txpck/s    rxkB/s    txkB/s   rxcmp/s   txcmp/s  rxmcst/s   %ifutil</span><br><span class="line">12:16:49 AM      eth0  18763.00   5032.00  20686.42    478.30      0.00      0.00      0.00      0.00</span><br><span class="line">12:16:49 AM        lo     14.00     14.00      1.36      1.36      0.00      0.00      0.00      0.00</span><br><span class="line">12:16:49 AM   docker0      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00</span><br><span class="line"></span><br><span class="line">12:16:49 AM     IFACE   rxpck/s   txpck/s    rxkB/s    txkB/s   rxcmp/s   txcmp/s  rxmcst/s   %ifutil</span><br><span class="line">12:16:50 AM      eth0  19763.00   5101.00  21999.10    482.56      0.00      0.00      0.00      0.00</span><br><span class="line">12:16:50 AM        lo     20.00     20.00      3.25      3.25      0.00      0.00      0.00      0.00</span><br><span class="line">12:16:50 AM   docker0      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00</span><br></pre></td></tr></table></figure>
 <p>查看网络吞吐量。</p>
 <h2 id="sar-n-TCP-ETCP-1"><a href="#sar-n-TCP-ETCP-1" class="headerlink" title="sar -n TCP,ETCP 1"></a>sar -n TCP,ETCP 1</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ sar -n TCP,ETCP 1</span><br><span class="line">Linux 3.13.0-49-generic (titanclusters-xxxxx)  07/14/2015    _x86_64_    (32 CPU)</span><br><span class="line"></span><br><span class="line">12:17:19 AM  active/s passive/s    iseg/s    oseg/s</span><br><span class="line">12:17:20 AM      1.00      0.00  10233.00  18846.00</span><br><span class="line"></span><br><span class="line">12:17:19 AM  atmptf/s  estres/s retrans/s isegerr/s   orsts/s</span><br><span class="line">12:17:20 AM      0.00      0.00      0.00      0.00      0.00</span><br><span class="line"></span><br><span class="line">12:17:20 AM  active/s passive/s    iseg/s    oseg/s</span><br><span class="line">12:17:21 AM      1.00      0.00   8359.00   6039.00</span><br><span class="line"></span><br><span class="line">12:17:20 AM  atmptf/s  estres/s retrans/s isegerr/s   orsts/s</span><br><span class="line">12:17:21 AM      0.00      0.00      0.00      0.00      0.00</span><br></pre></td></tr></table></figure>
 <p>查看网络连接情况</p>
 <h2 id="top"><a href="#top" class="headerlink" title="top"></a>top</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">$ top</span><br><span class="line">top - 00:15:40 up 21:56,  1 user,  load average: 31.09, 29.87, 29.92</span><br><span class="line">Tasks: 871 total,   1 running, 868 sleeping,   0 stopped,   2 zombie</span><br><span class="line">%Cpu(s): 96.8 us,  0.4 sy,  0.0 ni,  2.7 id,  0.1 wa,  0.0 hi,  0.0 si,  0.0 st</span><br><span class="line">KiB Mem:  25190241+total, 24921688 used, 22698073+free,    60448 buffers</span><br><span class="line">KiB Swap:        0 total,        0 used,        0 free.   554208 cached Mem</span><br><span class="line"></span><br><span class="line">   PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND</span><br><span class="line"> 20248 root      20   0  0.227t 0.012t  18748 S  3090  5.2  29812:58 java</span><br><span class="line">  4213 root      20   0 2722544  64640  44232 S  23.5  0.0 233:35.37 mesos-slave</span><br><span class="line"> 66128 titancl+  20   0   24344   2332   1172 R   1.0  0.0   0:00.07 top</span><br><span class="line">  5235 root      20   0 38.227g 547004  49996 S   0.7  0.2   2:02.74 java</span><br><span class="line">  4299 root      20   0 20.015g 2.682g  16836 S   0.3  1.1  33:14.42 java</span><br><span class="line">     1 root      20   0   33620   2920   1496 S   0.0  0.0   0:03.82 init</span><br><span class="line">     2 root      20   0       0      0      0 S   0.0  0.0   0:00.02 kthreadd</span><br><span class="line">     3 root      20   0       0      0      0 S   0.0  0.0   0:05.35 ksoftirqd/0</span><br><span class="line">     5 root       0 -20       0      0      0 S   0.0  0.0   0:00.00 kworker/0:0H</span><br><span class="line">     6 root      20   0       0      0      0 S   0.0  0.0   0:06.94 kworker/u256:0</span><br><span class="line">     8 root      20   0       0      0      0 S   0.0  0.0   2:38.05 rcu_sched</span><br></pre></td></tr></table></figure>
+
 <p>查看系统性能。</p>
 <p><a href="https://medium.com/netflix-techblog/linux-performance-analysis-in-60-000-milliseconds-accc10403c55" target="_blank" rel="noopener">参考链接</a></p>
 
@@ -478,7 +479,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-cn">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/28/service和systemctl的区别/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/28/service%E5%92%8Csystemctl%E7%9A%84%E5%8C%BA%E5%88%AB/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -492,7 +493,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/10/28/service和systemctl的区别/" class="post-title-link" itemprop="url">service和systemctl的区别</a>
+            <a href="/2019/10/28/service%E5%92%8Csystemctl%E7%9A%84%E5%8C%BA%E5%88%AB/" class="post-title-link" itemprop="url">service和systemctl的区别</a>
         </h1>
 
         <div class="post-meta">
@@ -530,10 +531,12 @@
       
           <h2 id="init"><a href="#init" class="headerlink" title="init"></a>init</h2><p>service是一个脚本命令，分析service可知是去/etc/init.d目录下执行相关程序。service和chkconfig结合使用。<br>服务配置文件存放目录/etc/init.d/</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 启动sshd服务</span><br><span class="line">service sshd start</span><br><span class="line"># 设置sshd服务开机启动</span><br><span class="line">chkconfig sshd start</span><br></pre></td></tr></table></figure>
+
 <h2 id="systemd"><a href="#systemd" class="headerlink" title="systemd"></a>systemd</h2><p>centos7版本中使用了systemd，systemd同时兼容service,对应的命令就是systemctl<br>Systemd 是 Linux 系统中最新的初始化系统（init），它主要的设计目标是克服 sysvinit 固有的缺点，提高系统的启动速度<br>使用systemd的目的是获取更快的启动速度。<br>为了减少系统启动时间，systemd的目标是<br>尽可能启动较少的进程<br>尽可能将更多进程并发启动<br>可以去查看系统进程的pid，initd的pid是0，如果支持systemd的系统的systemd进程pid为1</p>
 <p>systemd把不同的资源称为Unit<br>每一个 Unit 都有一个配置文件，告诉 Systemd 怎么启动这个 Unit<br>存放目录：/etc/systemd/system和/usr/lib/systemd/system</p>
 <p>对于有先后依赖关系的任务<br>systemctl融合service和chkconfig功能<br>systemctl的使用例如</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 开启服务</span><br><span class="line">systemctl start sshd.service</span><br><span class="line"># 设置开机启动</span><br><span class="line">systemctl enable sshd.service</span><br><span class="line"># 本质上是建立一个软链接 ln -s /usr/lib/systemd/system/sshd.service /etc/systemd/system/multi-user.target.wants/sshd.service</span><br></pre></td></tr></table></figure>
+
 <h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><p>systemd功能更加强大，是某些linux发行版用来代替系统启动init和service的一个新的系统工具，同时还没有失去兼容对init的兼容性。</p>
 
       
@@ -554,7 +557,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-cn">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/07/清除linux系统cache的方法/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/07/%E6%B8%85%E9%99%A4linux%E7%B3%BB%E7%BB%9Fcache%E7%9A%84%E6%96%B9%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -568,7 +571,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2018/08/07/清除linux系统cache的方法/" class="post-title-link" itemprop="url">清除linux系统cache的方法</a>
+            <a href="/2018/08/07/%E6%B8%85%E9%99%A4linux%E7%B3%BB%E7%BB%9Fcache%E7%9A%84%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">清除linux系统cache的方法</a>
         </h1>
 
         <div class="post-meta">
@@ -611,9 +614,13 @@
 
       
           <h2 id="只清除pagecache"><a href="#只清除pagecache" class="headerlink" title="只清除pagecache"></a>只清除pagecache</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sync; echo 1 &gt; /proc/sys/vm/drop_caches</span><br></pre></td></tr></table></figure>
+
 <h2 id="清除dentries-and-inodes"><a href="#清除dentries-and-inodes" class="headerlink" title="清除dentries and inodes"></a>清除dentries and inodes</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sync; echo 2 &gt; /proc/sys/vm/drop_caches</span><br></pre></td></tr></table></figure>
+
 <h2 id="清除PageCache-dentries-and-inodes"><a href="#清除PageCache-dentries-and-inodes" class="headerlink" title="清除PageCache, dentries and inodes"></a>清除PageCache, dentries and inodes</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sync; echo 3 &gt; /proc/sys/vm/drop_caches</span><br></pre></td></tr></table></figure>
+
 <h2 id="清除swap空间"><a href="#清除swap空间" class="headerlink" title="清除swap空间"></a>清除swap空间</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">swapoff -a &amp;&amp; swapon -a</span><br></pre></td></tr></table></figure>
+
 <p><a href="https://www.tecmint.com/clear-ram-memory-cache-buffer-and-swap-space-on-linux/" target="_blank" rel="noopener">原文链接</a></p>
 
       
@@ -634,7 +641,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-cn">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/26/Mac-Vim配置方法/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/26/Mac-Vim%E9%85%8D%E7%BD%AE%E6%96%B9%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -648,7 +655,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2018/04/26/Mac-Vim配置方法/" class="post-title-link" itemprop="url">Mac OS Vim插件配置方法</a>
+            <a href="/2018/04/26/Mac-Vim%E9%85%8D%E7%BD%AE%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">Mac OS Vim插件配置方法</a>
         </h1>
 
         <div class="post-meta">
@@ -720,7 +727,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-cn">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/22/C语言之free和inline/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/22/C%E8%AF%AD%E8%A8%80%E4%B9%8Bfree%E5%92%8Cinline/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -734,7 +741,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2017/01/22/C语言之free和inline/" class="post-title-link" itemprop="url">C语言之free和inline</a>
+            <a href="/2017/01/22/C%E8%AF%AD%E8%A8%80%E4%B9%8Bfree%E5%92%8Cinline/" class="post-title-link" itemprop="url">C语言之free和inline</a>
         </h1>
 
         <div class="post-meta">
@@ -784,19 +791,20 @@
 <p>【参数说明】ptr 为将要释放的内存空间的地址。</p>
 <p>free() 只能释放动态分配的内存空间，并不能释放任意的内存。下面的写法是错误的：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int a[10];</span><br><span class="line">// ...</span><br><span class="line">free(a);</span><br></pre></td></tr></table></figure>
+
 <p>如果 ptr 所指向的内存空间不是由上面的三个函数所分配的，或者已被释放，那么调用 free() 会有无法预知的情况发生。</p>
 <p>如果 ptr 为 NULL，那么 free() 不会有任何作用。</p>
 <p>注意：free() 不会改变 ptr 变量本身的值，调用 free() 后它仍然会指向相同的内存空间，但是此时该内存已无效，不能被使用。所以建议将 ptr 的值设置为 NULL，例如：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">free(ptr);</span><br><span class="line">ptr = NULL;</span><br></pre></td></tr></table></figure>
+
 <h2 id="内联函数（inline）和宏定义（define）"><a href="#内联函数（inline）和宏定义（define）" class="headerlink" title="内联函数（inline）和宏定义（define）"></a>内联函数（inline）和宏定义（define）</h2><h3 id="关键点："><a href="#关键点：" class="headerlink" title="关键点："></a>关键点：</h3><p>1、内联函数在可读性方面与函数是相同的，而在编译时是将函数直接嵌入调用程序的主体，省去了调用/返回指令，这样在运行时速度更快。</p>
 <p>2、内联函数可以调试，而宏定义是不可以调试的。</p>
 <p>内联函数与宏本质上是两个不同的概念如果程序编写者对于既要求快速，又要求可读的情况下，则应该将函数冠以inline。下面详细介绍一下探讨一下内联函数与宏定义。</p>
 <h3 id="一、内联函数是什么？"><a href="#一、内联函数是什么？" class="headerlink" title="一、内联函数是什么？"></a>一、内联函数是什么？</h3><p>内联函数是代码被插入到调用者代码处的函数。如同 #define 宏（但并不等同，原因见下文），内联函数通过避免被调用的开销来提高执行效率，尤其是它能够通过调用（“过程化集成”）被编译器优化。</p>
-<h3 id="二、-内联函数是如何在安全和速度上取得折衷？"><a href="#二、-内联函数是如何在安全和速度上取得折衷？" class="headerlink" title="二、 内联函数是如何在安全和速度上取得折衷？"></a>二、 内联函数是如何在安全和速度上取得折衷？</h3><p>在 C 中，你可以通过在结构中设置一个 void<em> 来得到“封装的结构”，在这种情况下，指向实际数据的 void</em> 指针对于结构的用户来说是未知的。因此结构的用户不知道如何解释void<em>指针所指内容，但是存取函数可以将 void</em> 转换成适当的隐含类型。这样给出了封装的一种形式。</p>
+<h3 id="二、-内联函数是如何在安全和速度上取得折衷？"><a href="#二、-内联函数是如何在安全和速度上取得折衷？" class="headerlink" title="二、 内联函数是如何在安全和速度上取得折衷？"></a>二、 内联函数是如何在安全和速度上取得折衷？</h3><p>在 C 中，你可以通过在结构中设置一个 void* 来得到“封装的结构”，在这种情况下，指向实际数据的 void* 指针对于结构的用户来说是未知的。因此结构的用户不知道如何解释void<em>指针所指内容，但是存取函数可以将 void</em> 转换成适当的隐含类型。这样给出了封装的一种形式。</p>
 <p>不幸的是这样做丧失了类型安全，并且也将繁琐的对结构中的每个域的访问强加于函数调用。（如果你允许直接存取结构的域，那么对任何能直接存取的人来说，了解如何解释 void* 指针所指内容就是必要的了；这样将使改变底层数据结构变的困难）。</p>
 <p>虽然函数调用开销是很小的，但它会被累积。C++类允许函数调用以内联展开。这样让你在得到封装的安全性时，同时得到直接存取的速度。此外，内联函数的参数类型由编译器检查，这是对 C 的 #define 宏的一个改进。</p>
-<h3 id="三、为什么我应该用内联函数？而不是原来清晰的-define-宏？"><a href="#三、为什么我应该用内联函数？而不是原来清晰的-define-宏？" class="headerlink" title="三、为什么我应该用内联函数？而不是原来清晰的 #define 宏？"></a>三、为什么我应该用内联函数？而不是原来清晰的 #define 宏？</h3><p>因为#define宏定义函数是在四处是有害的：<br>和 #define 宏不同的是，内联函数总是对参数只精确地进行一次求值，从而避免了那声名狼藉的宏错误。换句话说，调用内联函数和调用正规函数是等价的，差别仅仅是更快：<br>// 返回 i 的绝对值的宏</p>
-<p>#define unsafe(i) \<br>    ( (i) &gt;= 0 ? (i) : -(i) )</p>
+<h3 id="三、为什么我应该用内联函数？而不是原来清晰的-define-宏？"><a href="#三、为什么我应该用内联函数？而不是原来清晰的-define-宏？" class="headerlink" title="三、为什么我应该用内联函数？而不是原来清晰的 #define 宏？"></a>三、为什么我应该用内联函数？而不是原来清晰的 #define 宏？</h3><p>因为#define宏定义函数是在四处是有害的：<br>和 #define 宏不同的是，内联函数总是对参数只精确地进行一次求值，从而避免了那声名狼藉的宏错误。换句话说，调用内联函数和调用正规函数是等价的，差别仅仅是更快：<br>// 返回 i 的绝对值的宏<br>#define unsafe(i) <br>    ( (i) &gt;= 0 ? (i) : -(i) )</p>
 <p>// 返回 i 的绝对值的内联函数<br>inline<br>int safe(int i)<br>{<br>    return i &gt;= 0 ? i : -i;<br>}</p>
 <p>int f();</p>
 <p>void userCode(int x)<br>{<br>    int ans;</p>
@@ -804,8 +812,7 @@
 ans = unsafe(f());   // 危险！f()被调用两次
 
 ans = safe(x++);     // 正确！ x 被增加一次
-ans = safe(f());     // 正确！ f() 被调用一次
-</code></pre><p>}</p>
+ans = safe(f());     // 正确！ f() 被调用一次</code></pre><p>}</p>
 <p>和宏不同的，还有内联函数的参数类型被检查，并且被正确地进行必要的转换。<br>宏定义复杂函数是有害的；非万不得已不要用。</p>
 <h3 id="四、如何告诉编译器使非成员函数成为内联函数？"><a href="#四、如何告诉编译器使非成员函数成为内联函数？" class="headerlink" title="四、如何告诉编译器使非成员函数成为内联函数？"></a>四、如何告诉编译器使非成员函数成为内联函数？</h3><p>声明内联函数看上去和普通函数非常相似：<br>void f(int i, char c);<br>当你定义一个内联函数时，在函数定义前加上 inline 关键字，并且将定义放入头文件：<br>inline<br>void f(int i, char c)<br>{<br>    // …<br>}</p>
 <p>注意：将函数的定义（{…}之间的部分）放在头文件中是强制的，除非该函数仅仅被单个 .cpp 文件使用。尤其是，如果你将内联函数的定义放在 .cpp 文件中并且在其他 .cpp文件中调用它，连接器将给出 “unresolved external” 错误。</p>
@@ -834,7 +841,7 @@ ans = safe(f());     // 正确！ f() 被调用一次
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-cn">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/15/Hexo搭建博客/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/15/Hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -848,7 +855,7 @@ ans = safe(f());     // 正确！ f() 被调用一次
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2017/01/15/Hexo搭建博客/" class="post-title-link" itemprop="url">Hexo+Github搭建博客</a>
+            <a href="/2017/01/15/Hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" class="post-title-link" itemprop="url">Hexo+Github搭建博客</a>
         </h1>
 
         <div class="post-meta">
@@ -892,21 +899,30 @@ ans = safe(f());     // 正确！ f() 被调用一次
       
           <p>我的环境是Ubuntu14.04,利用Hexo将博客部署到github。</p>
 <h2 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h2><h3 id="一条命令即可"><a href="#一条命令即可" class="headerlink" title="一条命令即可"></a>一条命令即可</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo sudo apt-get install git</span><br></pre></td></tr></table></figure>
+
+
 <h2 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h2><p>Node.js的安装有很多种方式，使用编译源码安装的方式安装。</p>
 <h3 id="安装前配置安装g-编译器"><a href="#安装前配置安装g-编译器" class="headerlink" title="安装前配置安装g++编译器"></a>安装前配置安装g++编译器</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install build-essential</span><br></pre></td></tr></table></figure>
 <p>去<a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">Node.js</a>官网下载源代码，选择最后一项，Source Code</p>
 <h3 id="解压到某一目录，然后进入此目录-依次执行以下3条命令"><a href="#解压到某一目录，然后进入此目录-依次执行以下3条命令" class="headerlink" title="解压到某一目录，然后进入此目录,依次执行以下3条命令"></a>解压到某一目录，然后进入此目录,依次执行以下3条命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ./configure</span><br><span class="line">$ make</span><br><span class="line">$ sudo make install</span><br></pre></td></tr></table></figure>
 <p>安装时间比较长，可以喝杯咖啡。</p>
-<h2 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h2><p>一条命令即可<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo npm install -g hexo</span><br></pre></td></tr></table></figure></p>
+<h2 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h2><p>一条命令即可</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo npm install -g hexo</span><br></pre></td></tr></table></figure>
+
 <h2 id="创建博客"><a href="#创建博客" class="headerlink" title="创建博客"></a>创建博客</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init blog</span><br><span class="line">$ <span class="built_in">cd</span> blog</span><br><span class="line">$ sudo npm install</span><br></pre></td></tr></table></figure>
+
 <h3 id="生成静态页面"><a href="#生成静态页面" class="headerlink" title="生成静态页面"></a>生成静态页面</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
 <h3 id="启动本地服务"><a href="#启动本地服务" class="headerlink" title="启动本地服务"></a>启动本地服务</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+
 <h2 id="部署到github"><a href="#部署到github" class="headerlink" title="部署到github"></a>部署到github</h2><p>注册github账号之类的就不多说了</p>
 <h3 id="建立博客目录"><a href="#建立博客目录" class="headerlink" title="建立博客目录"></a>建立博客目录</h3><p>博客目录名称必须为yourusername.github.io</p>
 <h3 id="配置-config-yml"><a href="#配置-config-yml" class="headerlink" title="配置_config.yml"></a>配置_config.yml</h3><p>翻到最下面，改成我这样子的</p>
 <p>deploy:<br>  type: git<br>  repo: <a href="https://github.com/yourusername/yourusername.github.io.git" target="_blank" rel="noopener">https://github.com/yourusername/yourusername.github.io.git</a><br>  branch: master</p>
 <h3 id="执行命令"><a href="#执行命令" class="headerlink" title="执行命令"></a>执行命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
 <h3 id="推送到github"><a href="#推送到github" class="headerlink" title="推送到github"></a>推送到github</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
 <p>至此工作基本完成，可以访问你的博客了。</p>
 
       
@@ -1014,10 +1030,10 @@ ans = safe(f());     // 正确！ f() 被调用一次
   </span>
   <span class="author" itemprop="copyrightHolder">胡挺</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.7.1
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.0.0
   </div>
   <span class="post-meta-divider">|</span>
-  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.2
+  <div class="theme-info">Theme – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.2
   </div>
 
         
