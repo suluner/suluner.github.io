@@ -50,7 +50,7 @@
   };
 </script>
 
-  <meta name="keywords" content="浪花，脚印">
+  <meta name="keywords" content="技术，生活">
 <meta property="og:type" content="website">
 <meta property="og:title" content="月落阁">
 <meta property="og:url" content="http://yoursite.com/index.html">
@@ -201,6 +201,181 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-cn">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/31/Iptables原理和使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="胡挺">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="月落阁">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/10/31/Iptables原理和使用/" class="post-title-link" itemprop="url">Iptables原理和使用</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-10-31 18:13:37" itemprop="dateCreated datePublished" datetime="2019-10-31T18:13:37+08:00">2019-10-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-02 11:21:49" itemprop="dateModified" datetime="2019-11-02T11:21:49+08:00">2019-11-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/OS/" itemprop="url" rel="index">
+                    <span itemprop="name">OS</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>netfilter是一个免费的包过滤防火墙，位于内核空间，替代商业防火墙方案，完成封包过滤，封包重定向，网络地址转换（NAT）等功能。</p>
+<p>iptables是一个命令行工具，位于用户空间，用来操作netfilter。</p>
+<ul>
+<li>5条链（关卡）：</li>
+</ul>
+<p><img src="/.com//link.png" alt=""></p>
+<p>到本机某进程的报文：prerouting–&gt;input</p>
+<p>本机某进程发出的报文：output–&gt;postrouting</p>
+<p>本机转发的报文：prerouting–&gt;forward–&gt;postrouting</p>
+<ul>
+<li>4张表：</li>
+</ul>
+<p><img src="/.com//table.png" alt=""></p>
+<p>表中包含一条条规则</p>
+<p>规则组成：</p>
+<p>匹配条件+处理动作</p>
+<p>匹配条件：source ip,port destination ip, port</p>
+<p>处理动作：accept, drop, reject, snat, masquerde, dnat, redirect, log</p>
+<p>表的作用：</p>
+<p>filter：过滤</p>
+<p>nat：网络地址转换</p>
+<p>mangle：拆解报文，作出修改，重新封包</p>
+<p>raw：关闭nat表启用的连接追踪机制</p>
+<h2 id="规则查看"><a href="#规则查看" class="headerlink" title="规则查看"></a>规则查看</h2><p>iptables -t 表名 -L 链名</p>
+<p>选项：</p>
+<p>-v 显示详细信息</p>
+<p>-n 不解析IP地址</p>
+<p>-x 显示计数器精确值</p>
+<p>–line-number 规则显示编号</p>
+<h2 id="规则管理"><a href="#规则管理" class="headerlink" title="规则管理"></a>规则管理</h2><ul>
+<li>添加规则：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">iptables -t filter -I INPUT -s ip -j ACCEPT</span><br><span class="line"></span><br><span class="line">iptables -t filter -A INPIT -s ip -j ACCEPT</span><br></pre></td></tr></table></figure>
+<p>-I  在表头插入规则</p>
+<p>-A 在表尾追加规则</p>
+<p>规则的顺序很重要，如果某个报文已经被前面的规则匹配了，那么后面的规则不会处理。</p>
+<ul>
+<li>删除规则</li>
+</ul>
+<p>按序号删除</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">iptables --line -vnL INPUT</span><br><span class="line"></span><br><span class="line">iptables -t filter -D INPUT 3</span><br></pre></td></tr></table></figure>
+<p>按匹配条件和处理动作删除</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t filter -D INPUT -s ip -j ACCEPT</span><br></pre></td></tr></table></figure>
+<ul>
+<li>修改规则</li>
+</ul>
+<p>命令语法：iptables -t 表名 -R 链名 规则序号 规则原本的匹配条件 -j 动作</p>
+<p>示例：iptables -t filter -R INPUT 3 -s 192.168.1.146 -j ACCEPT</p>
+<p>修改默认规则</p>
+<p>命令语法：iptables -t 表名 -P 链名 动作</p>
+<p>示例：iptables -t filter -P FORWARD ACCEPT</p>
+<p>！！！ 修改iptables都是临时修改，iptables服务或者机器重启后都会丢失，一定要保存。</p>
+<p>service iptables save</p>
+<h2 id="匹配条件"><a href="#匹配条件" class="headerlink" title="匹配条件"></a>匹配条件</h2><p>匹配条件可以取反</p>
+<p>基本匹配条件源ip 目的ip</p>
+<p>扩展匹配条件 源端口， 目的端口，需要 -m参数指定模块</p>
+<ul>
+<li>扩展匹配模块</li>
+</ul>
+<p>tcp:匹配tcp协议 –sport –dport –tcp-flags –syn</p>
+<p>multiport：匹配多个端口</p>
+<p>iprange: 匹配连续IP范围</p>
+<p>string: 匹配报文中包含的字符</p>
+<p>time: 匹配报文的时间段区</p>
+<p>connlimit：匹配单个ip连接数量</p>
+<p>limit: 匹配单位时间内的报文数量</p>
+<p>udp: 匹配udp协议</p>
+<p>icmp: 匹配icmp协议</p>
+<p>state: 匹配连接状态，实现连接追踪</p>
+<h2 id="黑白名单机制"><a href="#黑白名单机制" class="headerlink" title="黑白名单机制"></a>黑白名单机制</h2><ul>
+<li>黑名单机制</li>
+</ul>
+<p>INPUT链默认策略设置为ACCEPT，添加动作为DROP的规则。不够安全</p>
+<ul>
+<li>白名单机制</li>
+</ul>
+<p>1）链默认策略设置为RDROP，添加动作为ACCEPT的规则，但是规则清空后，管理员也无法登录主机。</p>
+<p>2）链默认策略设置为ACCEPT，设置放行规则完毕之后，在最后设置一条拒绝所有连接的规则。</p>
+<h2 id="自定义链"><a href="#自定义链" class="headerlink" title="自定义链"></a>自定义链</h2><p>方便管理各种规则，普通规则的动作设置为自定义链，符合条件的报文会经过自定义链的规则。</p>
+<p>Docker一般也会添加自定义链。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 添加自定义链</span></span><br><span class="line">iptables -t filter -N IN_WEB</span><br><span class="line"><span class="comment"># 引用</span></span><br><span class="line">iptables -t filter -I INPUT -p tcp --dport 80 -j IN_WEB</span><br><span class="line"><span class="comment"># 修改名称</span></span><br><span class="line">iptables -E IN_WEB WEB</span><br><span class="line"><span class="comment"># 删除</span></span><br><span class="line">iptables -X WEB</span><br></pre></td></tr></table></figure>
+<h2 id="动作总结"><a href="#动作总结" class="headerlink" title="动作总结"></a>动作总结</h2><ul>
+<li>accept</li>
+<li>drop</li>
+<li>log</li>
+<li>snat 用来隐藏内网IP或者共享公网IP。</li>
+<li>dnat 用来暴露内网服务</li>
+</ul>
+<p>snat dnat 都用到了snat dnat两个动作，snat在前就叫snat, dnat在前就叫dnat</p>
+<ul>
+<li>masquerde 和snat相似，区别在于不绑定具体ip，而绑定网卡上的可用ip，用在外网ip地址常变动场景下。</li>
+<li>redirect 本机端口映射</li>
+</ul>
+<h2 id="套路总结"><a href="#套路总结" class="headerlink" title="套路总结"></a>套路总结</h2><ul>
+<li>规则顺序很重要，如果前面规则匹配，后面规则不会执行，所以相同服务的规则，更严格的规则要放前面</li>
+<li>规则中多个匹配项存在“与“的关系</li>
+<li>不考虑第一条规则的情况下，使用频率更高的规则放前面，节省主机计算资源。</li>
+<li>iptables作为防火墙时，要考虑双向性，从内到外，从外到内。</li>
+<li>设置白名单机制时，通常将链默认策略设置为ACCEPT，设置放行规则完毕之后，在最后设置一条拒绝所有连接的规则。</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -795,7 +970,7 @@ ans = safe(f());     // 正确！ f() 被调用一次
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -808,7 +983,7 @@ ans = safe(f());     // 正确！ f() 被调用一次
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
