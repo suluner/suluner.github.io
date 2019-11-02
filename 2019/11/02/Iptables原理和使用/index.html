@@ -50,19 +50,19 @@
   };
 </script>
 
-  <meta name="description" content="基本概念netfilter是一个免费的包过滤防火墙，位于内核空间，替代商业防火墙方案，完成封包过滤，封包重定向，网络地址转换（NAT）等功能。 iptables是一个命令行工具，位于用户空间，用来操作netfilter。  5条链（关卡）：    到本机某进程的报文：prerouting–&amp;gt;input 本机某进程发出的报文：output–&amp;gt;postrouting 本机转发的报文：pre">
+  <meta name="description" content="基本概念netfilter是一个免费的包过滤防火墙，位于内核空间，替代商业防火墙方案，完成封包过滤，封包重定向，网络地址转换（NAT）等功能。 iptables是一个命令行工具，位于用户空间，用来操作netfilter。  5条链（关卡）：   到本机某进程的报文：prerouting–&amp;gt;input 本机某进程发出的报文：output–&amp;gt;postrouting 本机转发的报文：prer">
 <meta name="keywords" content="Linux,Network">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Iptables原理和使用">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;02&#x2F;Iptables%E5%8E%9F%E7%90%86%E5%92%8C%E4%BD%BF%E7%94%A8&#x2F;index.html">
 <meta property="og:site_name" content="月落阁">
-<meta property="og:description" content="基本概念netfilter是一个免费的包过滤防火墙，位于内核空间，替代商业防火墙方案，完成封包过滤，封包重定向，网络地址转换（NAT）等功能。 iptables是一个命令行工具，位于用户空间，用来操作netfilter。  5条链（关卡）：    到本机某进程的报文：prerouting–&amp;gt;input 本机某进程发出的报文：output–&amp;gt;postrouting 本机转发的报文：pre">
+<meta property="og:description" content="基本概念netfilter是一个免费的包过滤防火墙，位于内核空间，替代商业防火墙方案，完成封包过滤，封包重定向，网络地址转换（NAT）等功能。 iptables是一个命令行工具，位于用户空间，用来操作netfilter。  5条链（关卡）：   到本机某进程的报文：prerouting–&amp;gt;input 本机某进程发出的报文：output–&amp;gt;postrouting 本机转发的报文：prer">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;.com&#x2F;&#x2F;11&#x2F;02&#x2F;Iptables%E5%8E%9F%E7%90%86%E5%92%8C%E4%BD%BF%E7%94%A8&#x2F;link.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;.com&#x2F;&#x2F;11&#x2F;02&#x2F;Iptables%E5%8E%9F%E7%90%86%E5%92%8C%E4%BD%BF%E7%94%A8&#x2F;table.png">
-<meta property="og:updated_time" content="2019-11-02T04:03:26.242Z">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;iptable&#x2F;link.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;02&#x2F;Iptables%E5%8E%9F%E7%90%86%E5%92%8C%E4%BD%BF%E7%94%A8&#x2F;images&#x2F;iptable&#x2F;table.png">
+<meta property="og:updated_time" content="2019-11-02T04:19:56.480Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;.com&#x2F;&#x2F;11&#x2F;02&#x2F;Iptables%E5%8E%9F%E7%90%86%E5%92%8C%E4%BD%BF%E7%94%A8&#x2F;link.png">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;iptable&#x2F;link.png">
 
 <link rel="canonical" href="http://yoursite.com/2019/11/02/Iptables%E5%8E%9F%E7%90%86%E5%92%8C%E4%BD%BF%E7%94%A8/">
 
@@ -234,7 +234,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2019-11-02 11:13:37 / Modified: 12:03:26" itemprop="dateCreated datePublished" datetime="2019-11-02T11:13:37+08:00">2019-11-02</time>
+              <time title="Created: 2019-11-02 11:13:37 / Modified: 12:19:56" itemprop="dateCreated datePublished" datetime="2019-11-02T11:13:37+08:00">2019-11-02</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -264,16 +264,14 @@
 <ul>
 <li>5条链（关卡）：</li>
 </ul>
-<img src="/11/02/Iptables%E5%8E%9F%E7%90%86%E5%92%8C%E4%BD%BF%E7%94%A8/link.png" class="" title="link image">
-
+<p><img src="/images/iptable/link.png" alt=""></p>
 <p>到本机某进程的报文：prerouting–&gt;input</p>
 <p>本机某进程发出的报文：output–&gt;postrouting</p>
 <p>本机转发的报文：prerouting–&gt;forward–&gt;postrouting</p>
 <ul>
 <li>4张表：</li>
 </ul>
-<img src="/11/02/Iptables%E5%8E%9F%E7%90%86%E5%92%8C%E4%BD%BF%E7%94%A8/table.png" class="" title="table image">
-
+<p><img src="images/iptable/table.png" alt=""></p>
 <p>表中包含一条条规则</p>
 <p>规则组成：</p>
 <p>匹配条件+处理动作</p>
