@@ -54,17 +54,17 @@
 <meta name="keywords" content="Linux,Network">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Iptables原理和使用">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;02&#x2F;Iptables%E5%8E%9F%E7%90%86%E5%92%8C%E4%BD%BF%E7%94%A8&#x2F;index.html">
+<meta property="og:url" content="https:&#x2F;&#x2F;suluner.github.io&#x2F;2019&#x2F;11&#x2F;02&#x2F;Iptables%E5%8E%9F%E7%90%86%E5%92%8C%E4%BD%BF%E7%94%A8&#x2F;index.html">
 <meta property="og:site_name" content="月落阁">
 <meta property="og:description" content="基本概念netfilter是一个免费的包过滤防火墙，位于内核空间，替代商业防火墙方案，完成封包过滤，封包重定向，网络地址转换（NAT）等功能。 iptables是一个命令行工具，位于用户空间，用来操作netfilter。  5条链（关卡）：   到本机某进程的报文：prerouting–&amp;gt;input 本机某进程发出的报文：output–&amp;gt;postrouting 本机转发的报文：prer">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;iptable&#x2F;link.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;02&#x2F;Iptables%E5%8E%9F%E7%90%86%E5%92%8C%E4%BD%BF%E7%94%A8&#x2F;images&#x2F;iptable&#x2F;table.png">
-<meta property="og:updated_time" content="2019-11-02T04:19:56.480Z">
+<meta property="og:image" content="https:&#x2F;&#x2F;suluner.github.io&#x2F;images&#x2F;iptable&#x2F;link.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;suluner.github.io&#x2F;images&#x2F;iptable&#x2F;table.png">
+<meta property="og:updated_time" content="2019-11-15T12:09:13.763Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;iptable&#x2F;link.png">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;suluner.github.io&#x2F;images&#x2F;iptable&#x2F;link.png">
 
-<link rel="canonical" href="http://yoursite.com/2019/11/02/Iptables%E5%8E%9F%E7%90%86%E5%92%8C%E4%BD%BF%E7%94%A8/">
+<link rel="canonical" href="https://suluner.github.io/2019/11/02/Iptables%E5%8E%9F%E7%90%86%E5%92%8C%E4%BD%BF%E7%94%A8/">
 
 
 <script id="page-configurations">
@@ -169,21 +169,6 @@
     <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
 
   </li>
-        <li class="menu-item menu-item-schedule">
-
-    <a href="/schedule/" rel="section"><i class="fa fa-fw fa-calendar"></i>Schedule</a>
-
-  </li>
-        <li class="menu-item menu-item-sitemap">
-
-    <a href="/sitemap.xml" rel="section"><i class="fa fa-fw fa-sitemap"></i>Sitemap</a>
-
-  </li>
-        <li class="menu-item menu-item-commonweal">
-
-    <a href="/404/" rel="section"><i class="fa fa-fw fa-heartbeat"></i>Commonweal 404</a>
-
-  </li>
   </ul>
 
 </nav>
@@ -210,7 +195,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-cn">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/02/Iptables%E5%8E%9F%E7%90%86%E5%92%8C%E4%BD%BF%E7%94%A8/">
+    <link itemprop="mainEntityOfPage" href="https://suluner.github.io/2019/11/02/Iptables%E5%8E%9F%E7%90%86%E5%92%8C%E4%BD%BF%E7%94%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -232,10 +217,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2019-11-02 11:13:37 / Modified: 12:19:56" itemprop="dateCreated datePublished" datetime="2019-11-02T11:13:37+08:00">2019-11-02</time>
+              <time title="Created: 2019-11-02 11:13:37" itemprop="dateCreated datePublished" datetime="2019-11-02T11:13:37+08:00">2019-11-02</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-15 20:09:13" itemprop="dateModified" datetime="2019-11-15T20:09:13+08:00">2019-11-15</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -271,7 +262,7 @@
 <ul>
 <li>4张表：</li>
 </ul>
-<p><img src="images/iptable/table.png" alt=""></p>
+<p><img src="/images/iptable/table.png" alt=""></p>
 <p>表中包含一条条规则</p>
 <p>规则组成：</p>
 <p>匹配条件+处理动作</p>
@@ -445,7 +436,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
