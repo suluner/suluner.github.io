@@ -210,6 +210,24 @@
 
               <time title="Created: 2019-11-15 20:18:10" itemprop="dateCreated datePublished" datetime="2019-11-15T20:18:10+08:00">2019-11-15</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-16 20:47:20" itemprop="dateModified" datetime="2019-11-16T20:47:20+08:00">2019-11-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">学习</span>
+                  </a>
+                </span>
+            </span>
 
           
 
@@ -222,7 +240,29 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          
+          <h2 id="MVC模式"><a href="#MVC模式" class="headerlink" title="MVC模式"></a>MVC模式</h2><p>mvc模式如下图所示：</p>
+<p><img src="/images/posts/arch/mvc.png" alt=""></p>
+<p>Model 是数据，View 是数据的显示结果，同时也接受用户的交互动作，也就是事件。从这个意义来说，说 Model 是 Input 并不严谨，View 接受的用户交互，也是 Input 的一部分。</p>
+<p>Controller 负责 Process（处理），它接受 “Model + 由 View 转发的事件” 作为 Input，处理的结果（Output）仍然是 Model，它更新了 Model 的数据。</p>
+<p>Model数据更新之后，会产生一个事件datachanged发给view，view进行视图的更新。</p>
+<p>当Controller监听data changed事件，然后更新view时，就变成了另一种模式：mvp。</p>
+<p><img src="/images/posts/arch/mvp.png" alt=""></p>
+<h3 id="理解Model层"><a href="#理解Model层" class="headerlink" title="理解Model层"></a>理解Model层</h3><p>model层应该自然体现业务逻辑，不仅包括数据，也包括接口。</p>
+<p>单一职责原则：不要干多件事，也不要啥事不干。</p>
+<p>Model层的核心价值是业务需求，是稳定点；datachanged事件是面对需求变化点的对策。</p>
+<p>model层越厚越好，这是跨平台最容易的部分。</p>
+<h3 id="理解View层"><a href="#理解View层" class="headerlink" title="理解View层"></a>理解View层</h3><p>View层的首要责任是界面呈现，可以自己调用GDI画，也可以用子View画。</p>
+<p>其次，响应用户事件，应该委托出去给别人干。</p>
+<p>View层局部更新太复杂时，一般会引入ViewModel层，它的数据组织接近于View。</p>
+<h2 id="理解Controller层"><a href="#理解Controller层" class="headerlink" title="理解Controller层"></a>理解Controller层</h2><p>Model层和View都是一个整体，而Controller层不是。它由一个一个不相关的controller和它需要的辅助view组成。controller之间可以完全不知道对方的存在。</p>
+<p>应用程序将MVC各个模块串起来，在程序开始的时候，把Model，Controller，View层创建好，建立彼此关联。</p>
+<h2 id="工程师文化"><a href="#工程师文化" class="headerlink" title="工程师文化"></a>工程师文化</h2><ul>
+<li>事务与工程：防止掉入事务陷阱，花更多时间在工程上才有利于职业发展。</li>
+<li>彻底解决问题：清楚定义目标，以自动化方式把事务彻底解决掉。</li>
+<li>系统化与批判：去除不必要的代码，保证所有的代码行都有必须存在的目的。</li>
+</ul>
+<p>持续更新。。。</p>
+
       
     </div>
 
@@ -1163,13 +1203,13 @@ ans = safe(f());     // 正确！ f() 被调用一次</code></pre><p>}</p>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
