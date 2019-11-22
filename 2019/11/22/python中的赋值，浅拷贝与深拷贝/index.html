@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.4.2',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="在写python项目的时候，遇见一个python拷贝对象的坑，在此总结记录一下python中的赋值，浅拷贝与深拷贝。 不可变数据类型：数字，字符串和元组在python中，不可变对象的赋值，浅拷贝，深拷贝都指向同一个地址，三者没有区别： 123456789101112131415161718192021222324252627282930313233343536373839404142&amp;gt;&amp;gt">
+<meta name="keywords" content="编程语言">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python中的赋值，浅拷贝与深拷贝">
+<meta property="og:url" content="https:&#x2F;&#x2F;suluner.github.io&#x2F;2019&#x2F;11&#x2F;22&#x2F;python%E4%B8%AD%E7%9A%84%E8%B5%8B%E5%80%BC%EF%BC%8C%E6%B5%85%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B7%B1%E6%8B%B7%E8%B4%9D&#x2F;index.html">
+<meta property="og:site_name" content="月落阁">
+<meta property="og:description" content="在写python项目的时候，遇见一个python拷贝对象的坑，在此总结记录一下python中的赋值，浅拷贝与深拷贝。 不可变数据类型：数字，字符串和元组在python中，不可变对象的赋值，浅拷贝，深拷贝都指向同一个地址，三者没有区别： 123456789101112131415161718192021222324252627282930313233343536373839404142&amp;gt;&amp;gt">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="https:&#x2F;&#x2F;suluner.github.io&#x2F;images&#x2F;posts&#x2F;python_copy&#x2F;copy.png">
+<meta property="og:updated_time" content="2019-11-22T12:59:02.776Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;suluner.github.io&#x2F;images&#x2F;posts&#x2F;python_copy&#x2F;copy.png">
+
+<link rel="canonical" href="https://suluner.github.io/2019/11/22/python%E4%B8%AD%E7%9A%84%E8%B5%8B%E5%80%BC%EF%BC%8C%E6%B5%85%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B7%B1%E6%8B%B7%E8%B4%9D/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>python中的赋值，浅拷贝与深拷贝 | 月落阁</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">月落阁</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">非典型程序猿</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-cn">
+    <link itemprop="mainEntityOfPage" href="https://suluner.github.io/2019/11/22/python%E4%B8%AD%E7%9A%84%E8%B5%8B%E5%80%BC%EF%BC%8C%E6%B5%85%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B7%B1%E6%8B%B7%E8%B4%9D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="胡挺">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="月落阁">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          python中的赋值，浅拷贝与深拷贝
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-11-22 19:39:28 / Modified: 20:59:02" itemprop="dateCreated datePublished" datetime="2019-11-22T19:39:28+08:00">2019-11-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>在写python项目的时候，遇见一个python拷贝对象的坑，在此总结记录一下python中的赋值，浅拷贝与深拷贝。</p>
+<h2 id="不可变数据类型：数字，字符串和元组"><a href="#不可变数据类型：数字，字符串和元组" class="headerlink" title="不可变数据类型：数字，字符串和元组"></a>不可变数据类型：数字，字符串和元组</h2><p>在python中，不可变对象的赋值，浅拷贝，深拷贝都指向同一个地址，三者没有区别：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>n1 = <span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>n2 = n1</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>n3 = copy.copy(n1)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>n4 = copy.deepcopy(n1)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>n1 = <span class="number">2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(n1)</span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(n2)</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(n3)</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(n4)</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(id(n1))</span><br><span class="line"><span class="number">4503975584</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(id(n2))</span><br><span class="line"><span class="number">4503975552</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(id(n3))</span><br><span class="line"><span class="number">4503975552</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(id(n4))</span><br><span class="line"><span class="number">4503975552</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = (<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s1 = s</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s2 = copy.copy(s)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s3 = copy.deepcopy(s)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = (<span class="number">1</span>,<span class="number">2</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(s)</span><br><span class="line">(<span class="number">1</span>, <span class="number">2</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(s1)</span><br><span class="line">(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(s2)</span><br><span class="line">(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(s3)</span><br><span class="line">(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(id(s))</span><br><span class="line"><span class="number">4508458760</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(id(s1))</span><br><span class="line"><span class="number">4508464256</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(id(s2))</span><br><span class="line"><span class="number">4508464256</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(id(s3))</span><br><span class="line"><span class="number">4508464256</span></span><br></pre></td></tr></table></figure>
+
+<p>对于不可变类型，当修改的时候会<strong>替换</strong>旧的对象，（进行新的内存分配）产生一个新的地址</p>
+<p>PS:元组是不可变对象，但是元素可以是可变对象，还是可以改变元组的元素 ：）</p>
+<h2 id="可变数据类型：列表，字典和集合"><a href="#可变数据类型：列表，字典和集合" class="headerlink" title="可变数据类型：列表，字典和集合"></a>可变数据类型：列表，字典和集合</h2><p>一图胜千言：</p>
+<p><img src="/images/posts/python_copy/copy.png" alt=""></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> copy</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = a</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>c = copy.copy(a)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d = copy.deepcopy(a)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a.append(<span class="number">4</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a[<span class="number">3</span>].append(<span class="number">4</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(a)</span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>], <span class="number">4</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(b)</span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>], <span class="number">4</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(c)</span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(d)</span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a_dict = &#123;<span class="string">'1'</span>:<span class="number">1</span>,<span class="string">'2'</span>:<span class="number">2</span>,<span class="string">'3'</span>:&#123;<span class="string">'1'</span>:<span class="number">1</span>,<span class="string">'2'</span>:<span class="number">2</span>,<span class="string">'3'</span>:<span class="number">3</span>&#125;&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b_dict = a_dict</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>c_dict = copy.copy(a_dict)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d_dict = copy.deepcopy(a_dict)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a_dict[<span class="string">'4'</span>] = <span class="number">4</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a_dict[<span class="string">'3'</span>][<span class="string">'4'</span>] = <span class="number">4</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(a_dict)</span><br><span class="line">&#123;<span class="string">'1'</span>: <span class="number">1</span>, <span class="string">'2'</span>: <span class="number">2</span>, <span class="string">'3'</span>: &#123;<span class="string">'1'</span>: <span class="number">1</span>, <span class="string">'2'</span>: <span class="number">2</span>, <span class="string">'3'</span>: <span class="number">3</span>, <span class="string">'4'</span>: <span class="number">4</span>&#125;, <span class="string">'4'</span>: <span class="number">4</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(b_dict)</span><br><span class="line">&#123;<span class="string">'1'</span>: <span class="number">1</span>, <span class="string">'2'</span>: <span class="number">2</span>, <span class="string">'3'</span>: &#123;<span class="string">'1'</span>: <span class="number">1</span>, <span class="string">'2'</span>: <span class="number">2</span>, <span class="string">'3'</span>: <span class="number">3</span>, <span class="string">'4'</span>: <span class="number">4</span>&#125;, <span class="string">'4'</span>: <span class="number">4</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(c_dict)</span><br><span class="line">&#123;<span class="string">'1'</span>: <span class="number">1</span>, <span class="string">'2'</span>: <span class="number">2</span>, <span class="string">'3'</span>: &#123;<span class="string">'1'</span>: <span class="number">1</span>, <span class="string">'2'</span>: <span class="number">2</span>, <span class="string">'3'</span>: <span class="number">3</span>, <span class="string">'4'</span>: <span class="number">4</span>&#125;&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(d_dict)</span><br><span class="line">&#123;<span class="string">'1'</span>: <span class="number">1</span>, <span class="string">'2'</span>: <span class="number">2</span>, <span class="string">'3'</span>: &#123;<span class="string">'1'</span>: <span class="number">1</span>, <span class="string">'2'</span>: <span class="number">2</span>, <span class="string">'3'</span>: <span class="number">3</span>&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意，集合的元素不能为可变类型，所以对于集合浅拷贝和深拷贝没有区别。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>对于可变类型对象，赋值只是增加了一个对象的引用，它们指向内存中的同一个对象；浅拷贝会开辟新内存将对象拷贝一份，但是不会拷贝子对象；深拷贝会开辟新内存将对象拷贝后，连带子对象也拷贝，与原对象完全独立。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" rel="tag"># 编程语言</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2019/11/15/%E8%AE%B8%E5%BC%8F%E4%BC%9F%E7%9A%84%E6%9E%B6%E6%9E%84%E8%AF%BE%E7%AC%94%E8%AE%B0/" rel="next" title="许式伟的架构课笔记">
+                  <i class="fa fa-chevron-left"></i> 许式伟的架构课笔记
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#不可变数据类型：数字，字符串和元组"><span class="nav-number">1.</span> <span class="nav-text">不可变数据类型：数字，字符串和元组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可变数据类型：列表，字典和集合"><span class="nav-number">2.</span> <span class="nav-text">可变数据类型：列表，字典和集合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="site-author-image" itemprop="image" alt="胡挺"
+    src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">胡挺</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">胡挺</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.2
+  </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
