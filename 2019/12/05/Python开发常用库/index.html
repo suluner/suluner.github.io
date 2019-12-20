@@ -50,15 +50,18 @@
   };
 </script>
 
-  <meta name="keywords" content="技术，生活">
-<meta property="og:type" content="website">
-<meta property="og:title" content="月落阁">
-<meta property="og:url" content="https:&#x2F;&#x2F;suluner.github.io&#x2F;tags&#x2F;%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1&#x2F;index.html">
+  <meta name="description" content="参数解析——argparsepython解析命令行参数时，可以使用sys.argv，optparse，argparse模块。 其中argparse模块功能最丰富友好，是optparse库的升级版，推荐使用。optparse自从3.2和2.7版本已经不再开发。 getopt模块是为了照顾习惯C语言里面的getopt库而开发的，如果用户不熟悉C语言中的getopt，没有必要使用。 日志——loggin">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python开发常用库">
+<meta property="og:url" content="https:&#x2F;&#x2F;suluner.github.io&#x2F;2019&#x2F;12&#x2F;05&#x2F;Python%E5%BC%80%E5%8F%91%E5%B8%B8%E7%94%A8%E5%BA%93&#x2F;index.html">
 <meta property="og:site_name" content="月落阁">
+<meta property="og:description" content="参数解析——argparsepython解析命令行参数时，可以使用sys.argv，optparse，argparse模块。 其中argparse模块功能最丰富友好，是optparse库的升级版，推荐使用。optparse自从3.2和2.7版本已经不再开发。 getopt模块是为了照顾习惯C语言里面的getopt库而开发的，如果用户不熟悉C语言中的getopt，没有必要使用。 日志——loggin">
 <meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2019-12-05T11:27:55.430Z">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://suluner.github.io/tags/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/">
+<link rel="canonical" href="https://suluner.github.io/2019/12/05/Python%E5%BC%80%E5%8F%91%E5%B8%B8%E7%94%A8%E5%BA%93/">
 
 
 <script id="page-configurations">
@@ -66,13 +69,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false,
+    isPost: true,
     isPage: false,
     isArchive: false
   };
 </script>
 
-  <title>Tag: 负载均衡 | 月落阁</title>
+  <title>Python开发常用库 | 月落阁</title>
   
 
 
@@ -179,50 +182,106 @@
           <div class="content">
             
 
+  <div class="posts-expand">
+      
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h1 class="collection-header">负载均衡
-          <small>Tag</small>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-cn">
+    <link itemprop="mainEntityOfPage" href="https://suluner.github.io/2019/12/05/Python%E5%BC%80%E5%8F%91%E5%B8%B8%E7%94%A8%E5%BA%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="胡挺">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="月落阁">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Python开发常用库
         </h1>
-      </div>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-12-05 14:33:55 / Modified: 19:27:55" itemprop="dateCreated datePublished" datetime="2019-12-05T14:33:55+08:00">2019-12-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Language/" itemprop="url" rel="index">
+                    <span itemprop="name">Language</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <h1 class="collection-header">2019</h1>
+        <h2 id="参数解析——argparse"><a href="#参数解析——argparse" class="headerlink" title="参数解析——argparse"></a>参数解析——argparse</h2><p>python解析命令行参数时，可以使用sys.argv，optparse，argparse模块。</p>
+<p>其中argparse模块功能最丰富友好，是optparse库的升级版，推荐使用。optparse自从3.2和2.7版本已经不再开发。</p>
+<p>getopt模块是为了照顾习惯C语言里面的getopt库而开发的，如果用户不熟悉C语言中的getopt，没有必要使用。</p>
+<h2 id="日志——logging"><a href="#日志——logging" class="headerlink" title="日志——logging"></a>日志——logging</h2><p>非常全面灵活的日志库。</p>
+<h2 id="高级文件和目录操作——shutil"><a href="#高级文件和目录操作——shutil" class="headerlink" title="高级文件和目录操作——shutil"></a>高级文件和目录操作——shutil</h2><p>shutil库主要对复制文件，删除文件，压缩文件具有良好的支持。对单个文件进行操作可以使用os库。</p>
+<p>压缩文件功能依赖zipfile和tarfile库。</p>
+<p>os包含与操作系统有关的接口，参考os库介绍：</p>
+<p>本模块提供了一种使用与操作系统相关的功能的便捷式途径。 如果你只是想读写一个文件，请参阅 <a href="https://docs.python.org/zh-cn/3/library/functions.html#open" target="_blank" rel="noopener"><code>open()</code></a>，如果你想操作文件路径，请参阅 <a href="https://docs.python.org/zh-cn/3/library/os.path.html#module-os.path" target="_blank" rel="noopener"><code>os.path</code></a> 模块，如果你想读取通过命令行给出的所有文件中的所有行，请参阅 <a href="https://docs.python.org/zh-cn/3/library/fileinput.html#module-fileinput" target="_blank" rel="noopener"><code>fileinput</code></a> 模块。 为了创建临时文件和目录，请参阅 <a href="https://docs.python.org/zh-cn/3/library/tempfile.html#module-tempfile" target="_blank" rel="noopener"><code>tempfile</code></a> 模块，对于高级文件和目录处理，请参阅 <a href="https://docs.python.org/zh-cn/3/library/shutil.html#module-shutil" target="_blank" rel="noopener"><code>shutil</code></a> 模块。</p>
+<h2 id="HTTP库——Requests"><a href="#HTTP库——Requests" class="headerlink" title="HTTP库——Requests"></a>HTTP库——Requests</h2><p>Urllib3是Requests库实现的基石</p>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-11-24T15:12:34+08:00"
-              content="2019-11-24">
-          11-24
-        </time>
-      </div>
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Python/" rel="tag"># Python</a>
+          </div>
 
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/11/24/%E4%B8%8D%E5%90%8C%E5%B1%82%E6%AC%A1%E7%9A%84%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/" itemprop="url">
-            <span itemprop="name">不同层次的负载均衡</span>
-          </a>
-      </h2>
+        
 
-    </header>
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2019/11/24/%E4%B8%8D%E5%90%8C%E5%B1%82%E6%AC%A1%E7%9A%84%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/" rel="next" title="不同层次的负载均衡">
+                  <i class="fa fa-chevron-left"></i> 不同层次的负载均衡
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/2019/12/20/GTC%E4%BC%9A%E8%AE%AE%E7%BA%AA%E8%A6%81/" rel="prev" title="GTC会议纪要">
+                  GTC会议纪要 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
   </article>
+  
+  
+  
 
-    </div>
   </div>
-  
-  
-  
-
-  
-
 
 
           </div>
@@ -251,6 +310,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#参数解析——argparse"><span class="nav-number">1.</span> <span class="nav-text">参数解析——argparse</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日志——logging"><span class="nav-number">2.</span> <span class="nav-text">日志——logging</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高级文件和目录操作——shutil"><span class="nav-number">3.</span> <span class="nav-text">高级文件和目录操作——shutil</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP库——Requests"><span class="nav-number">4.</span> <span class="nav-text">HTTP库——Requests</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

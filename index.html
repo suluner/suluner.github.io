@@ -184,6 +184,265 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-cn">
+    <link itemprop="mainEntityOfPage" href="https://suluner.github.io/2019/12/20/GTC%E4%BC%9A%E8%AE%AE%E7%BA%AA%E8%A6%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="胡挺">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="月落阁">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/20/GTC%E4%BC%9A%E8%AE%AE%E7%BA%AA%E8%A6%81/" class="post-title-link" itemprop="url">GTC会议纪要</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-12-20 15:10:18 / Modified: 15:12:04" itemprop="dateCreated datePublished" datetime="2019-12-20T15:10:18+08:00">2019-12-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%BC%9A%E8%AE%AE/" itemprop="url" rel="index">
+                    <span itemprop="name">会议</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="黄教主演讲"><a href="#黄教主演讲" class="headerlink" title="黄教主演讲"></a>黄教主演讲</h2><ul>
+<li>GPU在各个行业中的应用：游戏，电影，模拟软件，HPC(基因测序)，AI…</li>
+<li>Cuda on Arm，加速高性能计算</li>
+<li>AI 复兴： alexnet图像领域， bert NLP领域</li>
+<li>AI引擎-GPU</li>
+<li>深度推荐系统-互联网的引擎<ul>
+<li>百度</li>
+<li>阿里</li>
+</ul>
+</li>
+<li>TensorRT 5<ul>
+<li>CNN</li>
+<li>30多种变换</li>
+<li>自动混合精度</li>
+</ul>
+</li>
+<li>TensorRT 7<ul>
+<li>CNN and RNN，Transformer</li>
+<li>1000多种变换</li>
+<li>低延迟，会话AI成为可能</li>
+</ul>
+</li>
+<li>为智能云提供支持</li>
+<li>万物智能革命，边缘计算</li>
+<li>边缘智能，AI靠近作用点</li>
+<li>机器人平台，4种SDK<ul>
+<li>自动驾驶<ul>
+<li>迁移学习</li>
+<li>联邦学习，共享模型，不共享数据</li>
+</ul>
+</li>
+<li>医疗</li>
+<li>非结构化环境导航和关节控制</li>
+<li>通用机器人</li>
+</ul>
+</li>
+</ul>
+<h2 id="GPU虚拟化"><a href="#GPU虚拟化" class="headerlink" title="GPU虚拟化"></a>GPU虚拟化</h2><ul>
+<li>vGPU10.0发布</li>
+<li>vGPU性能比GPU损耗10%左右</li>
+<li>GPU虚拟化的价值：适配多种场景需求</li>
+<li>GPU虚拟化下的产品形态<ul>
+<li>IaaS产品：云桌面，云电脑</li>
+<li>行业产品：云游戏</li>
+</ul>
+</li>
+<li>云上的实践：弹性容器服务</li>
+<li>vGPU价值：安全性，故障监测，热迁移，粒度更细，池化</li>
+<li>vGPU在云上可以做到算力细化和算力多样化，算力匹配可以降低客户成本。灵活性，可用性，安全性</li>
+</ul>
+<h2 id="美团案例分享"><a href="#美团案例分享" class="headerlink" title="美团案例分享"></a>美团案例分享</h2><ul>
+<li>TF-serving应用</li>
+</ul>
+<h2 id="腾讯如何构建AI-强化学习平台"><a href="#腾讯如何构建AI-强化学习平台" class="headerlink" title="腾讯如何构建AI+强化学习平台"></a>腾讯如何构建AI+强化学习平台</h2><ul>
+<li>算力挖掘：CPU， GPU虚拟化: 人-&gt;物理机-》人-&gt;卡-》任务-&gt;卡</li>
+<li>并行强化框架</li>
+<li>训练加速<ul>
+<li>通信优化：NCCL2+ RDMA，梯度融合（多次梯度传输合并为一次），混合层次算法</li>
+<li>IO优化：IO隐藏，多线程+无锁队列+共享内存</li>
+<li>fp16数据输入</li>
+</ul>
+</li>
+<li>GPU推理加速<ul>
+<li>性能<ul>
+<li>使用GPU TensorRT</li>
+<li>Refit</li>
+<li>tensorflow model -&gt; tensorrt model</li>
+</ul>
+</li>
+<li>流量<ul>
+<li>GPU推理和训练机器在同一IDC机房</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="飞浆并行训练与应用"><a href="#飞浆并行训练与应用" class="headerlink" title="飞浆并行训练与应用"></a>飞浆并行训练与应用</h2><ul>
+<li>同步算法，任务特点：通信密集，延迟敏感，显存瓶颈</li>
+<li>基础组件：Collective Operators</li>
+<li>MPI原语封装为高级api，提高易用性。Fleet API</li>
+<li>低配网络环境下的GPU并行<ul>
+<li>变频通信。降低通信次数，每块卡训练多步通信一次。</li>
+<li>稀疏通信，梯度稀疏化</li>
+</ul>
+</li>
+<li>有限显存下提升batch的方式<ul>
+<li>显存回收，删除中间变量，需要用到时重新计算（重新计算时与通信进行overlap，减少计算时间）。时间换空间</li>
+</ul>
+</li>
+<li>基于模型并行的超大规模分类<ul>
+<li>item过多，最后一层全连接层太大，内存装不下——模型并行：分治策略+模型并行训练。</li>
+</ul>
+</li>
+</ul>
+<h2 id="阿里云飞天AI加速解决方案"><a href="#阿里云飞天AI加速解决方案" class="headerlink" title="阿里云飞天AI加速解决方案"></a>阿里云飞天AI加速解决方案</h2><ul>
+<li>AI三大要素：数据，算法，算力</li>
+<li>飞天AI加速器（一个库？），统一加速各种训练框架。加速器有个接入层，接入到各个框架。IaaS层面优化，计算，通信，存储等。</li>
+<li>即刻构建——AI工作流：省时，省钱，易用</li>
+<li>K8s容器AI解决方案</li>
+<li>分布式训练加速性能优化<ul>
+<li>通信计算重叠 异步通信梯度</li>
+<li>延迟优化 去中心化方式聚合梯度</li>
+<li>带宽优化 拓扑结构分级通信，混合精度传输梯度，多梯度融合通信，动态分片通信，融合粒度分片通信动态调整</li>
+</ul>
+</li>
+</ul>
+<h2 id="GPU云计算平台给AI实现真正普惠"><a href="#GPU云计算平台给AI实现真正普惠" class="headerlink" title="GPU云计算平台给AI实现真正普惠"></a>GPU云计算平台给AI实现真正普惠</h2><ul>
+<li>AI产业价值：物流，城市，金融。。。</li>
+<li>AI开放平台</li>
+<li>京东云解决方案</li>
+<li>技术能力对外输出：AI，区块链，大数据，物联网，安全，云计算</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-cn">
+    <link itemprop="mainEntityOfPage" href="https://suluner.github.io/2019/12/05/Python%E5%BC%80%E5%8F%91%E5%B8%B8%E7%94%A8%E5%BA%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="胡挺">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="月落阁">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/05/Python%E5%BC%80%E5%8F%91%E5%B8%B8%E7%94%A8%E5%BA%93/" class="post-title-link" itemprop="url">Python开发常用库</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-12-05 14:33:55 / Modified: 19:27:55" itemprop="dateCreated datePublished" datetime="2019-12-05T14:33:55+08:00">2019-12-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Language/" itemprop="url" rel="index">
+                    <span itemprop="name">Language</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="参数解析——argparse"><a href="#参数解析——argparse" class="headerlink" title="参数解析——argparse"></a>参数解析——argparse</h2><p>python解析命令行参数时，可以使用sys.argv，optparse，argparse模块。</p>
+<p>其中argparse模块功能最丰富友好，是optparse库的升级版，推荐使用。optparse自从3.2和2.7版本已经不再开发。</p>
+<p>getopt模块是为了照顾习惯C语言里面的getopt库而开发的，如果用户不熟悉C语言中的getopt，没有必要使用。</p>
+<h2 id="日志——logging"><a href="#日志——logging" class="headerlink" title="日志——logging"></a>日志——logging</h2><p>非常全面灵活的日志库。</p>
+<h2 id="高级文件和目录操作——shutil"><a href="#高级文件和目录操作——shutil" class="headerlink" title="高级文件和目录操作——shutil"></a>高级文件和目录操作——shutil</h2><p>shutil库主要对复制文件，删除文件，压缩文件具有良好的支持。对单个文件进行操作可以使用os库。</p>
+<p>压缩文件功能依赖zipfile和tarfile库。</p>
+<p>os包含与操作系统有关的接口，参考os库介绍：</p>
+<p>本模块提供了一种使用与操作系统相关的功能的便捷式途径。 如果你只是想读写一个文件，请参阅 <a href="https://docs.python.org/zh-cn/3/library/functions.html#open" target="_blank" rel="noopener"><code>open()</code></a>，如果你想操作文件路径，请参阅 <a href="https://docs.python.org/zh-cn/3/library/os.path.html#module-os.path" target="_blank" rel="noopener"><code>os.path</code></a> 模块，如果你想读取通过命令行给出的所有文件中的所有行，请参阅 <a href="https://docs.python.org/zh-cn/3/library/fileinput.html#module-fileinput" target="_blank" rel="noopener"><code>fileinput</code></a> 模块。 为了创建临时文件和目录，请参阅 <a href="https://docs.python.org/zh-cn/3/library/tempfile.html#module-tempfile" target="_blank" rel="noopener"><code>tempfile</code></a> 模块，对于高级文件和目录处理，请参阅 <a href="https://docs.python.org/zh-cn/3/library/shutil.html#module-shutil" target="_blank" rel="noopener"><code>shutil</code></a> 模块。</p>
+<h2 id="HTTP库——Requests"><a href="#HTTP库——Requests" class="headerlink" title="HTTP库——Requests"></a>HTTP库——Requests</h2><p>Urllib3是Requests库实现的基石</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-cn">
     <link itemprop="mainEntityOfPage" href="https://suluner.github.io/2019/11/24/%E4%B8%8D%E5%90%8C%E5%B1%82%E6%AC%A1%E7%9A%84%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1019,206 +1278,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-cn">
-    <link itemprop="mainEntityOfPage" href="https://suluner.github.io/2018/04/26/Mac-Vim%E9%85%8D%E7%BD%AE%E6%96%B9%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="胡挺">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="月落阁">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/04/26/Mac-Vim%E9%85%8D%E7%BD%AE%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">Mac OS Vim插件配置方法</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-04-26 13:40:51" itemprop="dateCreated datePublished" datetime="2018-04-26T13:40:51+08:00">2018-04-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-10-28 11:45:26" itemprop="dateModified" datetime="2019-10-28T11:45:26+08:00">2019-10-28</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Tool/" itemprop="url" rel="index">
-                    <span itemprop="name">Tool</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>通常，在类Unix环境中编程，Vim是非常重要的编辑代码的工具，而且操作系统均会自带，免除了安装软件的烦恼。</p>
-<p>但是操作系统原生自带的Vim之具有最基本的一些功能，使用起来还是不大方便，因此，给Vim安装好用的插件成为了大家的选择。</p>
-<p>Vim的插件多种多样，自由度极高。经过长时间的努力寻找，终于找到了一种非常好的插件，特此记录一下。这个插件就是:</p>
-<h2 id="Spf13-vim"><a href="#Spf13-vim" class="headerlink" title="Spf13-vim"></a><a href="vim.spf13.com">Spf13-vim</a></h2><p>为了vim支持neocomplete这个插件，必须使得vim支持lua</p>
-<p>之前在网上看通过源码编译vim,但是我试了很多次都没有成功</p>
-<p>最后索性通过Mac自带的homebrew解决了问题：<br>brew install vim –with-lua</p>
-<p>brew install macvim –with-lua</p>
-<p>这两个命令都有效，简单快捷。</p>
-<p>然而这样又引入了一个新的问题：</p>
-<p>python-mode初始化时报错，初步猜测是因为我使用了anaconda</p>
-<p>但是我已经不想折腾了，现在也用不到，索性在.vimrc.local 中设置：<br>g:py_mode = 0<br>关闭了python-mode,反正现在也用不上，以后要用的时候再解决吧。就酱。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-cn">
-    <link itemprop="mainEntityOfPage" href="https://suluner.github.io/2017/01/22/C%E8%AF%AD%E8%A8%80%E4%B9%8Bfree%E5%92%8Cinline/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="胡挺">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="月落阁">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/01/22/C%E8%AF%AD%E8%A8%80%E4%B9%8Bfree%E5%92%8Cinline/" class="post-title-link" itemprop="url">C语言之free和inline</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-01-22 09:32:44" itemprop="dateCreated datePublished" datetime="2017-01-22T09:32:44+08:00">2017-01-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-10-28 11:38:01" itemprop="dateModified" datetime="2019-10-28T11:38:01+08:00">2019-10-28</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Language/" itemprop="url" rel="index">
-                    <span itemprop="name">Language</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>最近将YOLO项目的代码移植到Windows环境下。遇到了一些问题，因此记录下来。</p>
-<h2 id="free"><a href="#free" class="headerlink" title="free"></a>free</h2><p>头文件：#include &lt;stdlib.h&gt;</p>
-<p>free() 函数用来释放动态分配的内存空间，其原型为：</p>
-<p>void free (void* ptr);</p>
-<p>free() 可以释放由 malloc()、calloc()、realloc() 分配的内存空间，以便其他程序再次使用。</p>
-<p>【参数说明】ptr 为将要释放的内存空间的地址。</p>
-<p>free() 只能释放动态分配的内存空间，并不能释放任意的内存。下面的写法是错误的：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int a[10];</span><br><span class="line">// ...</span><br><span class="line">free(a);</span><br></pre></td></tr></table></figure>
-
-<p>如果 ptr 所指向的内存空间不是由上面的三个函数所分配的，或者已被释放，那么调用 free() 会有无法预知的情况发生。</p>
-<p>如果 ptr 为 NULL，那么 free() 不会有任何作用。</p>
-<p>注意：free() 不会改变 ptr 变量本身的值，调用 free() 后它仍然会指向相同的内存空间，但是此时该内存已无效，不能被使用。所以建议将 ptr 的值设置为 NULL，例如：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">free(ptr);</span><br><span class="line">ptr = NULL;</span><br></pre></td></tr></table></figure>
-
-<h2 id="内联函数（inline）和宏定义（define）"><a href="#内联函数（inline）和宏定义（define）" class="headerlink" title="内联函数（inline）和宏定义（define）"></a>内联函数（inline）和宏定义（define）</h2><h3 id="关键点："><a href="#关键点：" class="headerlink" title="关键点："></a>关键点：</h3><p>1、内联函数在可读性方面与函数是相同的，而在编译时是将函数直接嵌入调用程序的主体，省去了调用/返回指令，这样在运行时速度更快。</p>
-<p>2、内联函数可以调试，而宏定义是不可以调试的。</p>
-<p>内联函数与宏本质上是两个不同的概念如果程序编写者对于既要求快速，又要求可读的情况下，则应该将函数冠以inline。下面详细介绍一下探讨一下内联函数与宏定义。</p>
-<h3 id="一、内联函数是什么？"><a href="#一、内联函数是什么？" class="headerlink" title="一、内联函数是什么？"></a>一、内联函数是什么？</h3><p>内联函数是代码被插入到调用者代码处的函数。如同 #define 宏（但并不等同，原因见下文），内联函数通过避免被调用的开销来提高执行效率，尤其是它能够通过调用（“过程化集成”）被编译器优化。</p>
-<h3 id="二、-内联函数是如何在安全和速度上取得折衷？"><a href="#二、-内联函数是如何在安全和速度上取得折衷？" class="headerlink" title="二、 内联函数是如何在安全和速度上取得折衷？"></a>二、 内联函数是如何在安全和速度上取得折衷？</h3><p>在 C 中，你可以通过在结构中设置一个 void* 来得到“封装的结构”，在这种情况下，指向实际数据的 void* 指针对于结构的用户来说是未知的。因此结构的用户不知道如何解释void<em>指针所指内容，但是存取函数可以将 void</em> 转换成适当的隐含类型。这样给出了封装的一种形式。</p>
-<p>不幸的是这样做丧失了类型安全，并且也将繁琐的对结构中的每个域的访问强加于函数调用。（如果你允许直接存取结构的域，那么对任何能直接存取的人来说，了解如何解释 void* 指针所指内容就是必要的了；这样将使改变底层数据结构变的困难）。</p>
-<p>虽然函数调用开销是很小的，但它会被累积。C++类允许函数调用以内联展开。这样让你在得到封装的安全性时，同时得到直接存取的速度。此外，内联函数的参数类型由编译器检查，这是对 C 的 #define 宏的一个改进。</p>
-<h3 id="三、为什么我应该用内联函数？而不是原来清晰的-define-宏？"><a href="#三、为什么我应该用内联函数？而不是原来清晰的-define-宏？" class="headerlink" title="三、为什么我应该用内联函数？而不是原来清晰的 #define 宏？"></a>三、为什么我应该用内联函数？而不是原来清晰的 #define 宏？</h3><p>因为#define宏定义函数是在四处是有害的：<br>和 #define 宏不同的是，内联函数总是对参数只精确地进行一次求值，从而避免了那声名狼藉的宏错误。换句话说，调用内联函数和调用正规函数是等价的，差别仅仅是更快：<br>// 返回 i 的绝对值的宏<br>#define unsafe(i) <br>    ( (i) &gt;= 0 ? (i) : -(i) )</p>
-<p>// 返回 i 的绝对值的内联函数<br>inline<br>int safe(int i)<br>{<br>    return i &gt;= 0 ? i : -i;<br>}</p>
-<p>int f();</p>
-<p>void userCode(int x)<br>{<br>    int ans;</p>
-<pre><code>ans = unsafe(x++);   // 错误！x 被增加两次
-ans = unsafe(f());   // 危险！f()被调用两次
-
-ans = safe(x++);     // 正确！ x 被增加一次
-ans = safe(f());     // 正确！ f() 被调用一次</code></pre><p>}</p>
-<p>和宏不同的，还有内联函数的参数类型被检查，并且被正确地进行必要的转换。<br>宏定义复杂函数是有害的；非万不得已不要用。</p>
-<h3 id="四、如何告诉编译器使非成员函数成为内联函数？"><a href="#四、如何告诉编译器使非成员函数成为内联函数？" class="headerlink" title="四、如何告诉编译器使非成员函数成为内联函数？"></a>四、如何告诉编译器使非成员函数成为内联函数？</h3><p>声明内联函数看上去和普通函数非常相似：<br>void f(int i, char c);<br>当你定义一个内联函数时，在函数定义前加上 inline 关键字，并且将定义放入头文件：<br>inline<br>void f(int i, char c)<br>{<br>    // …<br>}</p>
-<p>注意：将函数的定义（{…}之间的部分）放在头文件中是强制的，除非该函数仅仅被单个 .cpp 文件使用。尤其是，如果你将内联函数的定义放在 .cpp 文件中并且在其他 .cpp文件中调用它，连接器将给出 “unresolved external” 错误。</p>
-<h3 id="五、如何告诉编译器使一个成员函数成为内联函数"><a href="#五、如何告诉编译器使一个成员函数成为内联函数" class="headerlink" title="五、如何告诉编译器使一个成员函数成为内联函数"></a>五、如何告诉编译器使一个成员函数成为内联函数</h3><p>声明内联成员函数看上去和普通函数非常类似：<br>class Fred {<br>    public:<br>    void f(int i, char c);<br>    };</p>
-<p>但是当你定义内联成员函数时，在成员函数定义前加上 inline 关键字，并且将定义放入头文件中：<br>inline<br>void Fred::f(int i, char c)<br>{<br>    // …<br>}</p>
-<p>通常将函数的定义（{…}之间的部分）放在头文件中是强制的。如果你将内联函数的定义放在 .cpp 文件中并且在其他 .cpp 文件中调用它，连接器将给出“unresolved external”错误。</p>
-<h3 id="六、-有其它方法告诉编译器使成员函数成为内联吗？"><a href="#六、-有其它方法告诉编译器使成员函数成为内联吗？" class="headerlink" title="六、 有其它方法告诉编译器使成员函数成为内联吗？"></a>六、 有其它方法告诉编译器使成员函数成为内联吗？</h3><p>有：在类体内定义成员函数：<br>class Fred {<br>    public:<br>    void f(int i, char c)<br>    {<br>        // …<br>    }<br>    };</p>
-<p>尽管这对于写类的人来说很容易，但由于它将类是“什么”(what)和类“如何”(how)工作混在一起.</p>
-<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>总之，在嵌入式C（或C++）编程里面，懂得使用内联函数（inline）与宏定义（#define），并使用好它们，对我们是大有裨益的。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1269,20 +1328,20 @@ ans = safe(f());     // 正确！ f() 被调用一次</code></pre><p>}</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
