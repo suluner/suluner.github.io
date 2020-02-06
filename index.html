@@ -184,6 +184,84 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-cn">
+    <link itemprop="mainEntityOfPage" href="https://suluner.github.io/2020/02/06/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E9%9D%A2%E8%AF%95%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="胡挺">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="月落阁">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/06/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E9%9D%A2%E8%AF%95%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97/" class="post-title-link" itemprop="url">深度学习面试装逼指南</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-02-06 17:51:01 / Modified: 17:54:32" itemprop="dateCreated datePublished" datetime="2020-02-06T17:51:01+08:00">2020-02-06</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="原文"><a href="#原文" class="headerlink" title="原文"></a>原文</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">举一个我面试中遇到过的目前最牛的例子，简称M。我一般负责和人吃饭闲聊。这位先生以前在Intel，只大概看过机器学习的一些东西。</span><br><span class="line">我：目前深度学习当中用mapreduce的比较少，因为我们经常要SGD，</span><br><span class="line">M：哦我猜一下，所以你们用MPI，然后你要优化Allreduce。</span><br><span class="line">我：。。。对的，然后很多时候网络会有瓶颈，</span><br><span class="line">M：恩，因为你们不想上infiniband。我：。。。对的，</span><br><span class="line">M：然后你们 网络的 吞吐速度是够的，但是延迟不理想。</span><br><span class="line">我：。。。对的，</span><br><span class="line">M：所以你们想要有异步通信，但是同时又要控制 模型不发散。</span><br><span class="line">我：。。。对的。</span><br><span class="line">我：然后我们的模型在部署的时候希望尽量高速，一个方法是 找稀疏解，</span><br><span class="line">M：但是你们发现稀疏性不够，目前的运行库需要1-5%的稀疏性才行。</span><br><span class="line">我：。。。对的，</span><br><span class="line">M：但是你们估计最多只有30%上下的稀疏性，否则模型质量就下降。</span><br><span class="line">我：对的。但是还是有一些办法，因为部署的时候模型是固定的，</span><br><span class="line">M：所以可以做即时编译然后内联参数。</span><br><span class="line">我：。。。对的。</span><br><span class="line"></span><br><span class="line">所以面试的加分项就是面试官还没问问题，你就先回答完了。装b结束了，说说我大概想表达的意思吧：机器学习里面了解怎么推公式，怎么解释算法等等，都是停留在技术的层面上。技术牛肯定是有加分的，但是如果要找一位算法/系统架构师，更容易加分的是了解这些技术背后真正解决的问题，在出现 需求的时候能很快解释背后的原理，然后找到解决问题的思路。这也是为啥我在面试的时候不问具体技术细节的缘故 - 开个玩笑，好的架构师只需要写头文件就行。。。</span><br><span class="line"></span><br><span class="line">=== 因为评论说没看懂，具体展开说 ===</span><br><span class="line"></span><br><span class="line">SGD+MPI+Allreduce：这个问的是机器学习当中SGD算法怎样并行化，以及如何处理并行当中的计算模式，讨论可以见Allreduce (or MPI) vs. Parameter server approaches（https://hunch.net/?p=151364）</span><br><span class="line"></span><br><span class="line">网络瓶颈：需要正确估计计算时间和网络通讯之间的比例，保证可以实现pipeline：Pipeline (computing)</span><br><span class="line"></span><br><span class="line">Infiniband以及ethernet：问的是大规模系统架构的时候的硬件选择问题，不想上Infiniband是因为成本问题，以及容易被少数vendor lock in的风险。</span><br><span class="line"></span><br><span class="line">网络的吞吐和延迟的区别：What is the difference between latency and throughput?</span><br><span class="line"></span><br><span class="line">异步通信的时候对于收敛性的影响：可以参见google的async sgd，sync sgd revisited，Eric Xing的latency bounded sgd，以及EASGD等一系列文章的讨论。</span><br><span class="line"></span><br><span class="line">模型的稀疏解：这个涉及到对于模型稀疏化能力的正确估计，目前的很多网络要保证不丢准确率的情况下，很难做到传统稀疏矩阵的那种要求。</span><br><span class="line"></span><br><span class="line">稀疏矩阵库的计算效率问题：这个如果做过数值优化的话应该是常识，但是五秒钟里面能从上一条跳到这一条然后找到瓶颈还是让我很惊讶的。</span><br><span class="line"></span><br><span class="line">即时编译和内联参数：这个比较涉及到数值优化的一系列可能性，以及对于编译器的期望，本身就是一道可以展开说一个钟头的问题。。。比如说，我们在做矩阵乘法的时候是需要pre-pack矩阵的，如果我们知道参数矩阵不会变，我们就可以预先pack，然后如果你可以自己写编译器来利用这些特性的话，你甚至可以没有那个矩阵，直接出一个程序把参数都写在指令里头。一般面试是不会涉及到那么多问题的，其中一两个就够讨论了，M先生属于特别牛的那种。。。</span><br></pre></td></tr></table></figure>
+
+<h2 id="知识点解读"><a href="#知识点解读" class="headerlink" title="知识点解读"></a>知识点解读</h2><h3 id="深度学习并行计算模式"><a href="#深度学习并行计算模式" class="headerlink" title="深度学习并行计算模式"></a>深度学习并行计算模式</h3><p>MPI vs PS</p>
+<p>single-machine vs. multi-machine</p>
+<p>deterministic vs. nondeterministic</p>
+<h3 id="网络瓶颈"><a href="#网络瓶颈" class="headerlink" title="网络瓶颈"></a>网络瓶颈</h3><p>计算通信比决定是否要pipeline。当计算通信比接近1:1时，pipeline的效果是比较明显的。</p>
+<h3 id="网络硬件选择"><a href="#网络硬件选择" class="headerlink" title="网络硬件选择"></a>网络硬件选择</h3><p>Infiniband vs ethernet，Infiniband成本比较高，且有vendor locked in的风险。</p>
+<h3 id="网络带宽和延迟"><a href="#网络带宽和延迟" class="headerlink" title="网络带宽和延迟"></a>网络带宽和延迟</h3><p>带宽足够，但是延迟高。那么可以加大并行通信的数量来进行优化。比如采用异步通信，充分利用带宽，提高单位时间数据传输量。</p>
+<h3 id="异步通信对模型收敛的影响"><a href="#异步通信对模型收敛的影响" class="headerlink" title="异步通信对模型收敛的影响"></a>异步通信对模型收敛的影响</h3><p>一般来说，异步通信会使得模型收敛性变差。</p>
+<h3 id="模型稀疏解"><a href="#模型稀疏解" class="headerlink" title="模型稀疏解"></a>模型稀疏解</h3><p>模型稀疏的好处：</p>
+<ul>
+<li><p>特征自动选择</p>
+</li>
+<li><p>可解释性</p>
+</li>
+<li><p>稀疏模型可采用算法压缩，容易存储和传输，加快模型部署</p>
+</li>
+</ul>
+<h3 id="稀疏矩阵库计算效率"><a href="#稀疏矩阵库计算效率" class="headerlink" title="稀疏矩阵库计算效率"></a>稀疏矩阵库计算效率</h3><p>矩阵越稀疏，稀疏矩阵库的计算速度越快</p>
+<h3 id="即时编译和参数内联"><a href="#即时编译和参数内联" class="headerlink" title="即时编译和参数内联"></a>即时编译和参数内联</h3><p>矩阵稀疏度不够，利用模型不变的特性，可以从编译方面对速度进行优化</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-cn">
     <link itemprop="mainEntityOfPage" href="https://suluner.github.io/2019/12/20/GTC%E4%BC%9A%E8%AE%AE%E7%BA%AA%E8%A6%81/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1194,90 +1272,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-cn">
-    <link itemprop="mainEntityOfPage" href="https://suluner.github.io/2018/08/07/%E6%B8%85%E9%99%A4linux%E7%B3%BB%E7%BB%9Fcache%E7%9A%84%E6%96%B9%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="胡挺">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="月落阁">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/08/07/%E6%B8%85%E9%99%A4linux%E7%B3%BB%E7%BB%9Fcache%E7%9A%84%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">清除linux系统cache的方法</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-08-07 19:28:34" itemprop="dateCreated datePublished" datetime="2018-08-07T19:28:34+08:00">2018-08-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-10-28 11:46:35" itemprop="dateModified" datetime="2019-10-28T11:46:35+08:00">2019-10-28</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/OS/" itemprop="url" rel="index">
-                    <span itemprop="name">OS</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="只清除pagecache"><a href="#只清除pagecache" class="headerlink" title="只清除pagecache"></a>只清除pagecache</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sync; echo 1 &gt; /proc/sys/vm/drop_caches</span><br></pre></td></tr></table></figure>
-
-<h2 id="清除dentries-and-inodes"><a href="#清除dentries-and-inodes" class="headerlink" title="清除dentries and inodes"></a>清除dentries and inodes</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sync; echo 2 &gt; /proc/sys/vm/drop_caches</span><br></pre></td></tr></table></figure>
-
-<h2 id="清除PageCache-dentries-and-inodes"><a href="#清除PageCache-dentries-and-inodes" class="headerlink" title="清除PageCache, dentries and inodes"></a>清除PageCache, dentries and inodes</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sync; echo 3 &gt; /proc/sys/vm/drop_caches</span><br></pre></td></tr></table></figure>
-
-<h2 id="清除swap空间"><a href="#清除swap空间" class="headerlink" title="清除swap空间"></a>清除swap空间</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">swapoff -a &amp;&amp; swapon -a</span><br></pre></td></tr></table></figure>
-
-<p><a href="https://www.tecmint.com/clear-ram-memory-cache-buffer-and-swap-space-on-linux/" target="_blank" rel="noopener">原文链接</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1328,7 +1322,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1366,7 +1360,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2019</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
