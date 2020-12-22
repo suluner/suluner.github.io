@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.4.2',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="梯度下降思想Gradient Descent 的核心思想非常的简单。针对一个模型，我们最终希望它的（非负的）损失函数最小：𝜽 = argmin J(𝜽)。 根据 Gradient Descent on Wikipedia，GD 秉持一个最朴素的思想：J&amp;#39;(𝜽) 指向哪里，沿着它的反方向 -J&amp;#39;(𝜽) 走（即 𝜽_next = 𝜽_now - J&amp;#39;(𝜽)），就能">
+<meta name="keywords" content="技术，生活">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深度学习优化器">
+<meta property="og:url" content="https:&#x2F;&#x2F;suluner.github.io&#x2F;2020&#x2F;12&#x2F;22&#x2F;%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%BC%98%E5%8C%96%E5%99%A8&#x2F;index.html">
+<meta property="og:site_name" content="月落阁">
+<meta property="og:description" content="梯度下降思想Gradient Descent 的核心思想非常的简单。针对一个模型，我们最终希望它的（非负的）损失函数最小：𝜽 = argmin J(𝜽)。 根据 Gradient Descent on Wikipedia，GD 秉持一个最朴素的思想：J&amp;#39;(𝜽) 指向哪里，沿着它的反方向 -J&amp;#39;(𝜽) 走（即 𝜽_next = 𝜽_now - J&amp;#39;(𝜽)），就能">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-12-22T02:08:06.227Z">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://suluner.github.io/2020/12/22/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%BC%98%E5%8C%96%E5%99%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>深度学习优化器 | 月落阁</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">月落阁</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">非典型程序猿</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-cn">
+    <link itemprop="mainEntityOfPage" href="https://suluner.github.io/2020/12/22/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%BC%98%E5%8C%96%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="胡挺">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="月落阁">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          深度学习优化器
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-12-22 10:05:28 / Modified: 10:08:06" itemprop="dateCreated datePublished" datetime="2020-12-22T10:05:28+08:00">2020-12-22</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="梯度下降思想"><a href="#梯度下降思想" class="headerlink" title="梯度下降思想"></a>梯度下降思想</h2><p>Gradient Descent 的核心思想非常的简单。针对一个模型，我们最终希望它的（非负的）损失函数最小：<code>𝜽 = argmin J(𝜽)</code>。</p>
+<p>根据 <a href="https://en.wikipedia.org/wiki/Gradient_descent" target="_blank" rel="noopener">Gradient Descent on Wikipedia</a>，GD 秉持一个最朴素的思想：<code>J&#39;(𝜽)</code> 指向哪里，沿着它的反方向 <code>-J&#39;(𝜽)</code> 走（即 <code>𝜽_next = 𝜽_now - J&#39;(𝜽)</code>），就能让 <code>J(𝜽)</code> 降低。</p>
+<p>梯度下降公式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">𝜽_next = 𝜽_now - 𝜺*J&apos;(𝜽)</span><br><span class="line"></span><br><span class="line">𝜺为学习率。</span><br></pre></td></tr></table></figure>
+
+<h2 id="BGD"><a href="#BGD" class="headerlink" title="BGD"></a>BGD</h2><p>每次计算整个训练集损失函数的均值，然后求导进行更新。</p>
+<p>由于这种方法是在一次更新中，就对整个数据集计算梯度。</p>
+<p>存在两个问题：</p>
+<ul>
+<li>计算速度慢</li>
+<li>计算占用内存大</li>
+</ul>
+<p>所以几乎无法投入实际使用</p>
+<h2 id="SGD"><a href="#SGD" class="headerlink" title="SGD"></a>SGD</h2><p>每次对单个样本计算损失函数和梯度，然后进行更新。</p>
+<p>存在问题：</p>
+<ul>
+<li>存在较大的噪声，损失函数存在较大的震荡。</li>
+</ul>
+<p>BGD可能收敛到局部最优点，SGD震荡可以跳出局部最优点，到达更好的最优点。</p>
+<h2 id="Mini-batch-SGD"><a href="#Mini-batch-SGD" class="headerlink" title="Mini-batch SGD"></a>Mini-batch SGD</h2><p>结合BGD和SGD的特点，每次利用训练集的一部分样本更新模型。</p>
+<p>存在问题：</p>
+<p>但是每次使用小部分数据更新模型，这小部分数据的梯度与整体数据的梯度可能存在偏差，还是会存在震荡。</p>
+<h2 id="Momentum"><a href="#Momentum" class="headerlink" title="Momentum"></a>Momentum</h2><p>单批样本更新存在偏差，那么就不要全速更新，一定程度上保留之前的梯度。颇有引入惯性定理的味道。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">v_t+1 = 𝝁v_t - 𝜺J&apos;(𝜽_t)</span><br><span class="line">𝜽_t+1 = 𝜽_t + v_t+1</span><br><span class="line"></span><br><span class="line">𝜺 是学习率，𝝁 则为一个取值 [0,1] 的动量系数。</span><br></pre></td></tr></table></figure>
+
+<h2 id="Nesterov-Momentum"><a href="#Nesterov-Momentum" class="headerlink" title="Nesterov Momentum"></a>Nesterov Momentum</h2><p>Momentum算法的改进版</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">v_t+1 = 𝝁v_t - 𝜺J&apos;(𝜽_t + 𝝁v_t)</span><br><span class="line">𝜽_t+1 = 𝜽_t + v_t+1</span><br></pre></td></tr></table></figure>
+
+<p>区别在于，将梯度计算放在施加当前速度之后。相当于计算梯度时，按照全局趋势先走半步，进一步减小偏差。</p>
+<p>以上算法在各个维度上的下降速度是一致的。然而在实际情况中，损失函数对不同的维度的敏感度是不一样的，因此对不同维度设置不同的学习率是一种比较好的方式。以下自适应学习率的方法即是这种思想的体现。</p>
+<h2 id="Delta-bar-delta"><a href="#Delta-bar-delta" class="headerlink" title="Delta-bar-delta"></a>Delta-bar-delta</h2><p>基于一种简单的思想：</p>
+<ol>
+<li>如果过去两次更新的梯度符号相同，代表方向正确，增大更新时的步长</li>
+<li>如果过去两次更新的梯度符号相反，代表方向不定，缩小更新时的步长</li>
+</ol>
+<p>这种方法只能用在全批量优化中，在 Mini-Batch 上却不好。每个 Mini-Batch 之间的差别会使得每一次更新本身的步长就会有很大的差异，这一点和全量数据更新时有比较明显的差异。</p>
+<h2 id="Adagrad"><a href="#Adagrad" class="headerlink" title="Adagrad"></a>Adagrad</h2><p>累计所有参数的历史梯度平方和，参数学习率与梯度平方和2次方根成反比。达到的效果是：</p>
+<ul>
+<li><p>在陡坡，学习率变小</p>
+</li>
+<li><p>在平地，学习率变大</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">r = r + g^2</span><br><span class="line"></span><br><span class="line">𝜽_t+1 = 𝜽_t - e/(o + r)^0.5 * g</span><br></pre></td></tr></table></figure>
+
+<p>存在问题：</p>
+<ul>
+<li>学习率过度减小</li>
+</ul>
+<p>适合凸函数优化</p>
+<ul>
+<li>优化器需要要对每个参数保存一个中间值，占用内存参数的两倍。</li>
+</ul>
+<h2 id="RMSProp"><a href="#RMSProp" class="headerlink" title="RMSProp"></a>RMSProp</h2><p>Hinton改进Adagrad算法适用于非凸优化场景。</p>
+<p>加入指数衰减，丢弃遥远过去的历史：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">r = p*r + (1-p)g^2</span><br><span class="line"></span><br><span class="line">𝜽_t+1 = 𝜽_t - e/(o + r)^0.5 * g</span><br></pre></td></tr></table></figure>
+
+<p>这种算法被证明是深度学习模型中非常有效的一种方法。</p>
+<ul>
+<li>优化器需要要对每个参数保存一个中间值，占用内存参数的两倍。</li>
+</ul>
+<h2 id="Adadelta"><a href="#Adadelta" class="headerlink" title="Adadelta"></a>Adadelta</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">r = p*r + (1-p)g^2</span><br><span class="line"></span><br><span class="line">对梯度下降的速度也做一个估计，用来当作学习率</span><br><span class="line">e = p*e + (1-p)𝜽^2</span><br><span class="line"></span><br><span class="line">𝜽_t+1 = 𝜽_t - e^0.5/(o + r)^0.5 * g</span><br></pre></td></tr></table></figure>
+
+<p>不用设定学习率。</p>
+<ul>
+<li>优化器需要要对每个参数保存2个中间值，占用内存参数的三倍。</li>
+</ul>
+<h2 id="Adam"><a href="#Adam" class="headerlink" title="Adam"></a>Adam</h2><p>集合RMSProp和动量算法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">m_t = 𝜷_1*m_t-1 + (1 - 𝜷_1)*J&apos;(𝜽)</span><br><span class="line"></span><br><span class="line">v_t = 𝜷_2*v_t-1 + (1 - 𝜷_2)*J&apos;(𝜽)^2</span><br><span class="line"></span><br><span class="line">对期望和方差做修正：</span><br><span class="line">m_hat_t = m_t / (1 - 𝜷_1^t)</span><br><span class="line">v_hat_t = v_t / (1 - 𝜷_2^t)</span><br><span class="line"></span><br><span class="line">𝜽_w,t = 𝜽_w,t-1 - 𝜂*m_hat_t/(sqrt(v_hat_t) + 𝜺)</span><br><span class="line"></span><br><span class="line">𝜺 是一个用以保证数值稳定的一个很小的值。</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>优化器需要要对每个参数保存2个中间值，占用内存参数的三倍。</li>
+</ul>
+<h2 id="优化器效果对比"><a href="#优化器效果对比" class="headerlink" title="优化器效果对比"></a>优化器效果对比</h2><p><strong>如果数据是稀疏的，就用自适用方法，即 Adagrad, Adadelta, RMSprop, Adam。</strong></p>
+<p><strong>RMSprop, Adadelta, Adam 在很多情况下的效果是相似的。</strong></p>
+<p><strong>Adam 就是在 RMSprop 的基础上加了 bias-correction 和 momentum，</strong></p>
+<p><strong>随着梯度变的稀疏，Adam 比 RMSprop 效果会好。</strong></p>
+<p>整体来讲，<strong>Adam 是最好的选择</strong>。</p>
+<p>很多论文里都会用 SGD，没有 momentum 等。<strong>SGD 虽然能达到极小值，但是比其它算法用的时间长，而且可能会被困在鞍点</strong>。</p>
+<p>如果需要更快的收敛，或者是训练更深更复杂的神经网络，需要用一种自适应的算法。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2020/02/06/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E9%9D%A2%E8%AF%95%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97/" rel="next" title="深度学习面试装逼指南">
+                  <i class="fa fa-chevron-left"></i> 深度学习面试装逼指南
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/2020/12/22/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83%E4%BC%98%E5%8C%96/" rel="prev" title="深度学习模型训练优化">
+                  深度学习模型训练优化 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#梯度下降思想"><span class="nav-number">1.</span> <span class="nav-text">梯度下降思想</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BGD"><span class="nav-number">2.</span> <span class="nav-text">BGD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SGD"><span class="nav-number">3.</span> <span class="nav-text">SGD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mini-batch-SGD"><span class="nav-number">4.</span> <span class="nav-text">Mini-batch SGD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Momentum"><span class="nav-number">5.</span> <span class="nav-text">Momentum</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Nesterov-Momentum"><span class="nav-number">6.</span> <span class="nav-text">Nesterov Momentum</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Delta-bar-delta"><span class="nav-number">7.</span> <span class="nav-text">Delta-bar-delta</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Adagrad"><span class="nav-number">8.</span> <span class="nav-text">Adagrad</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RMSProp"><span class="nav-number">9.</span> <span class="nav-text">RMSProp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Adadelta"><span class="nav-number">10.</span> <span class="nav-text">Adadelta</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Adam"><span class="nav-number">11.</span> <span class="nav-text">Adam</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化器效果对比"><span class="nav-number">12.</span> <span class="nav-text">优化器效果对比</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="site-author-image" itemprop="image" alt="胡挺"
+    src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">胡挺</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">胡挺</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.2
+  </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

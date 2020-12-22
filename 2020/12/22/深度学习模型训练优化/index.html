@@ -50,15 +50,18 @@
   };
 </script>
 
-  <meta name="keywords" content="技术，生活">
-<meta property="og:type" content="website">
-<meta property="og:title" content="月落阁">
-<meta property="og:url" content="https:&#x2F;&#x2F;suluner.github.io&#x2F;tags&#x2F;Vim&#x2F;index.html">
+  <meta name="description" content="目标 训练性能 资源占用 模型效果  baseline训练性能 IO：缓存，pipeline，并行处理，数据存储方式（稀疏化存储） 计算：超参调整（batch-size），优化器选择，梯度更新方式，稀疏表示运算，线程数量调整（线程太多，切换代价高）  资源占用 流式读取训练数据  buffer size  优化器  模型编写方式   模型效果 模型结构 优化器 超参  分布式阿姆达尔定律评估加速上">
+<meta name="keywords" content="技术，生活">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深度学习模型训练优化">
+<meta property="og:url" content="https:&#x2F;&#x2F;suluner.github.io&#x2F;2020&#x2F;12&#x2F;22&#x2F;%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83%E4%BC%98%E5%8C%96&#x2F;index.html">
 <meta property="og:site_name" content="月落阁">
+<meta property="og:description" content="目标 训练性能 资源占用 模型效果  baseline训练性能 IO：缓存，pipeline，并行处理，数据存储方式（稀疏化存储） 计算：超参调整（batch-size），优化器选择，梯度更新方式，稀疏表示运算，线程数量调整（线程太多，切换代价高）  资源占用 流式读取训练数据  buffer size  优化器  模型编写方式   模型效果 模型结构 优化器 超参  分布式阿姆达尔定律评估加速上">
 <meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-12-22T02:10:43.985Z">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://suluner.github.io/tags/Vim/">
+<link rel="canonical" href="https://suluner.github.io/2020/12/22/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83%E4%BC%98%E5%8C%96/">
 
 
 <script id="page-configurations">
@@ -66,13 +69,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false,
+    isPost: true,
     isPage: false,
     isArchive: false
   };
 </script>
 
-  <title>Tag: Vim | 月落阁</title>
+  <title>深度学习模型训练优化 | 月落阁</title>
   
 
 
@@ -179,50 +182,128 @@
           <div class="content">
             
 
+  <div class="posts-expand">
+      
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h1 class="collection-header">Vim
-          <small>Tag</small>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-cn">
+    <link itemprop="mainEntityOfPage" href="https://suluner.github.io/2020/12/22/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83%E4%BC%98%E5%8C%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="胡挺">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="月落阁">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          深度学习模型训练优化
         </h1>
-      </div>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-12-22 10:08:58 / Modified: 10:10:43" itemprop="dateCreated datePublished" datetime="2020-12-22T10:08:58+08:00">2020-12-22</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <h1 class="collection-header">2018</h1>
+        <h2 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h2><ul>
+<li>训练性能</li>
+<li>资源占用</li>
+<li>模型效果</li>
+</ul>
+<h2 id="baseline"><a href="#baseline" class="headerlink" title="baseline"></a>baseline</h2><h3 id="训练性能"><a href="#训练性能" class="headerlink" title="训练性能"></a>训练性能</h3><ul>
+<li>IO：缓存，pipeline，并行处理，数据存储方式（稀疏化存储）</li>
+<li>计算：超参调整（batch-size），优化器选择，梯度更新方式，稀疏表示运算，线程数量调整（线程太多，切换代价高）</li>
+</ul>
+<h3 id="资源占用"><a href="#资源占用" class="headerlink" title="资源占用"></a>资源占用</h3><ul>
+<li><p>流式读取训练数据</p>
+</li>
+<li><p>buffer size</p>
+</li>
+<li><p>优化器</p>
+</li>
+<li><p>模型编写方式</p>
+</li>
+</ul>
+<h3 id="模型效果"><a href="#模型效果" class="headerlink" title="模型效果"></a>模型效果</h3><ul>
+<li>模型结构</li>
+<li>优化器</li>
+<li>超参</li>
+</ul>
+<h2 id="分布式"><a href="#分布式" class="headerlink" title="分布式"></a>分布式</h2><p>阿姆达尔定律评估加速上限，提供理论指导。</p>
+<p>尽量提高计算访存比。</p>
+<h3 id="训练性能-1"><a href="#训练性能-1" class="headerlink" title="训练性能"></a>训练性能</h3><ul>
+<li><p>分布式模式选择：AllReduce vs PS</p>
+</li>
+<li><p>数据切分方式：文件名切分</p>
+</li>
+<li><p>梯度合并方式：提高计算/通信比。提高并发，降低延迟</p>
+</li>
+<li><p>PS模式下，大tensor切分</p>
+</li>
+<li><p>Horovod模式下，梯度融合传递</p>
+</li>
+<li><p>调度策略（bin-pack, spread）</p>
+</li>
+</ul>
+<h3 id="模型效果-1"><a href="#模型效果-1" class="headerlink" title="模型效果"></a>模型效果</h3><ul>
+<li>超参调整：lr</li>
+</ul>
+<h2 id="高级话题"><a href="#高级话题" class="headerlink" title="高级话题"></a>高级话题</h2><ul>
+<li>特征动态增删（Dynamic embedding）</li>
+<li>实时训练</li>
+<li>可伸缩分布式训练（elasticDL，FTlib）</li>
+</ul>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2018-04-26T13:40:51+08:00"
-              content="2018-04-26">
-          04-26
-        </time>
-      </div>
+      <footer class="post-footer">
 
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2018/04/26/Mac-Vim%E9%85%8D%E7%BD%AE%E6%96%B9%E6%B3%95/" itemprop="url">
-            <span itemprop="name">Mac OS Vim插件配置方法</span>
-          </a>
-      </h2>
+        
 
-    </header>
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2020/12/22/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%BC%98%E5%8C%96%E5%99%A8/" rel="next" title="深度学习优化器">
+                  <i class="fa fa-chevron-left"></i> 深度学习优化器
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+            </div>
+          </div>
+      </footer>
+    
   </article>
+  
+  
+  
 
-    </div>
   </div>
-  
-  
-  
-
-  
-
 
 
           </div>
@@ -251,6 +332,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#目标"><span class="nav-number">1.</span> <span class="nav-text">目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#baseline"><span class="nav-number">2.</span> <span class="nav-text">baseline</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#训练性能"><span class="nav-number">2.1.</span> <span class="nav-text">训练性能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#资源占用"><span class="nav-number">2.2.</span> <span class="nav-text">资源占用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型效果"><span class="nav-number">2.3.</span> <span class="nav-text">模型效果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分布式"><span class="nav-number">3.</span> <span class="nav-text">分布式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#训练性能-1"><span class="nav-number">3.1.</span> <span class="nav-text">训练性能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型效果-1"><span class="nav-number">3.2.</span> <span class="nav-text">模型效果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高级话题"><span class="nav-number">4.</span> <span class="nav-text">高级话题</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
